@@ -1,0 +1,9 @@
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <a routerLink="/" class="logo me-3"> <i class="fa-solid fa-building"></i></a>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <input type="text" class="me-2" pInputText placeholder="Search" />
+    <a class="link">Login / Register</a>
+  </ng-template>
+</p-menubar>

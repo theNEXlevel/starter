@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  background-color: var(--gray-300);
+  position: fixed;
+  width: 100%;
+}
+
+.logo {
+  display: block;
+  font-size: 2rem;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--primary-500);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary-600);
+  }
+}

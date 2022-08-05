@@ -3,7 +3,6 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
-    "api-interfaces": "libs/api-interfaces",
     "ui": "apps/ui",
     "ui-e2e": "apps/ui-e2e"
   }
