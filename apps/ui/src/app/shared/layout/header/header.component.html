@@ -1,9 +1,16 @@
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
-    <a routerLink="/" class="logo me-3"> <i class="fa-solid fa-building"></i></a>
+    <a routerLink="" class="logo me-3"> <i class="fa-solid fa-building"></i></a>
   </ng-template>
   <ng-template pTemplate="end">
     <input type="text" class="me-2" pInputText placeholder="Search" />
-    <a class="link">Login / Register</a>
+    <span class="link me-2" (click)="login.toggle($event)">Login</span>
+    <a class="link" routerLink="register">Register</a>
   </ng-template>
 </p-menubar>
+
+<p-overlayPanel #login [dismissable]="false">
+  <ng-template pTemplate>
+    <starter-login></starter-login>
+  </ng-template>
+</p-overlayPanel>

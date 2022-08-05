@@ -18,6 +18,7 @@ async function bootstrap() {
       whitelist: true,
     })
   );
+  app.enableCors();
   await app.listen(port);
   Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
 }
