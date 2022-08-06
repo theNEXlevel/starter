@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="submit()">
   <div class="field">
     <label for="email" class="d-block">Email</label>
     <input
@@ -7,10 +7,10 @@
       id="email"
       pInputText
       formControlName="email"
-      [ngClass]="{ 'is-invalid': email?.touched && email?.errors }"
+      [ngClass]="{ 'is-invalid': ngForm.submitted && (email?.errors?.['required'] || email?.errors?.['email']) }"
     />
-    <small class="text-danger" *ngIf="email?.touched && email?.errors?.['required']">Email is required</small>
-    <small class="text-danger" *ngIf="email?.touched && email?.errors?.['email']">Email must be valid</small>
+    <small class="text-danger" *ngIf="ngForm.submitted && email?.errors?.['required']">Email is required</small>
+    <small class="text-danger" *ngIf="ngForm.submitted && email?.errors?.['email']">Email must be valid</small>
   </div>
   <div class="field mt-3">
     <label for="password" class="d-block">Password</label>
@@ -20,10 +20,10 @@
       id="password"
       pInputText
       formControlName="password"
-      [ngClass]="{ 'is-invalid': password?.touched && password?.errors }"
+      [ngClass]="{ 'is-invalid': ngForm.submitted && password?.errors }"
     />
-    <small class="text-danger" *ngIf="password?.touched && password?.errors?.['required']">Password is required</small>
+    <small class="text-danger" *ngIf="ngForm.submitted && password?.errors?.['required']">Password is required</small>
   </div>
-  <small class="d-block text-danger mt-3" *ngIf="error$ | async as error">{{ error }}</small>
+  <small class="d-block text-danger mt-3" *ngIf="error$ | async as err">{{ err.error.message }}</small>
   <button type="submit" class="btn btn-primary mt-3">Login</button>
 </form>

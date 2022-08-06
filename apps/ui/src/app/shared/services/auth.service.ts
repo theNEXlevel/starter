@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Subject, switchMap } from 'rxjs';
-
-export interface Login {
-  email: string;
-  password: string;
-}
+import { Error, Login, UserApp } from '@starter/api-interfaces';
+import { catchError, EMPTY, tap } from 'rxjs';
+import { UserRepository } from '../state/user.repository';
+import { ErrorRepository } from '../state/error.respository';
 
 @Injectable({
   providedIn: 'root',
@@ -14,16 +12,16 @@ export interface Login {
 export class AuthService {
   baseUrl = `${environment.apiUrl}/auth`;
 
-  private loginSubject = new Subject<Login>();
-  login$ = this.loginSubject.asObservable().pipe(
-    switchMap((data) => {
-      return this.http.post(`${this.baseUrl}/login`, data);
-    })
-  );
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userRepo: UserRepository, private errorRepo: ErrorRepository) {}
 
   login(data: Login) {
-    this.loginSubject.next(data);
+    return this.http.post<UserApp>(`${this.baseUrl}/login`, data).pipe(
+      tap(this.userRepo.setUser),
+      catchError((err: HttpErrorResponse) => {
+        const error: Error = err.error;
+        this.errorRepo.setError(error);
+        return EMPTY;
+      })
+    );
   }
 }

@@ -1,5 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { OverlayPanel } from 'primeng/overlaypanel';
+import { tap } from 'rxjs';
+import { UserRepository } from '../../state/user.repository';
 
 @Component({
   selector: 'starter-header',
@@ -10,6 +13,18 @@ import { MenuItem } from 'primeng/api';
 export class HeaderComponent implements OnInit {
   items!: MenuItem[];
 
+  user$ = this.userRepo.user$.pipe(
+    tap((user) => {
+      if (user.user) {
+        this.login?.hide();
+      }
+    })
+  );
+
+  @ViewChild('login') login?: OverlayPanel;
+
+  constructor(private userRepo: UserRepository) {}
+
   ngOnInit(): void {
     this.items = [
       {
@@ -17,5 +32,9 @@ export class HeaderComponent implements OnInit {
         routerLink: 'dashboard',
       },
     ];
+  }
+
+  logoff(): void {
+    this.userRepo.resetUser();
   }
 }

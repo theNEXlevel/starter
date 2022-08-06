@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
-import { AuthService, Login } from '../../../services/auth.service';
+import { Login } from '@starter/api-interfaces';
+import { AuthService } from '../../../services/auth.service';
+import { ErrorRepository } from '../../../state/error.respository';
 
 @Component({
   selector: 'starter-login',
@@ -9,20 +10,8 @@ import { AuthService, Login } from '../../../services/auth.service';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
-  errorSubject = new BehaviorSubject<string>('');
-  error$ = this.errorSubject.asObservable();
-
-  login$ = this.authSvc.login$.pipe(
-    tap((data) => {
-      console.log(data);
-      // handle user has been authed! Implement Elf state management
-    }),
-    catchError((err) => {
-      this.errorSubject.next(err.error.message);
-      return EMPTY;
-    })
-  );
+export class LoginComponent {
+  error$ = this.errorRepo.error$;
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -36,20 +25,13 @@ export class LoginComponent implements OnInit {
   get password() {
     return this.form.get('password');
   }
-  constructor(private fb: NonNullableFormBuilder, private authSvc: AuthService) {}
-
-  ngOnInit(): void {
-    this.authSvc.login$.subscribe();
-    this.form.valueChanges.subscribe(() => {
-      this.errorSubject.next('');
-    });
-  }
+  constructor(private fb: NonNullableFormBuilder, private authSvc: AuthService, private errorRepo: ErrorRepository) {}
 
   submit(): void {
-    this.form.markAllAsTouched();
+    this.errorRepo.resetError();
     if (this.form.invalid) {
       return;
     }
-    this.authSvc.login(this.form.value as Login);
+    this.authSvc.login(this.form.value as Login).subscribe();
   }
 }

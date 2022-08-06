@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { AuthDto } from './dto';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { UserApp } from '@starter/api-interfaces';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
         },
       });
 
-      return this.signToken(user.id, user.email);
+      return this.signToken(user);
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
         throw new ForbiddenException('Credentials taken');
@@ -41,13 +42,13 @@ export class AuthService {
     if (!pwMatches) {
       throw new ForbiddenException('Credentials Incorrect');
     }
-    return this.signToken(user.id, user.email);
+    return this.signToken(user);
   }
 
-  async signToken(userId: string, email: string): Promise<{ accessToken: string }> {
+  async signToken(user: UserApp): Promise<UserApp> {
     const payload = {
-      sub: userId,
-      email,
+      sub: user.id,
+      email: user.email,
     };
 
     const token = await this.jwtSvc.signAsync(payload, {
@@ -55,7 +56,10 @@ export class AuthService {
       secret: this.configSvc.get('JWT_SECRET'),
     });
 
+    delete user.hash;
+
     return {
+      ...user,
       accessToken: token,
     };
   }
