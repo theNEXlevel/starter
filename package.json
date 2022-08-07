@@ -48,6 +48,7 @@
     "bootstrap": "^5.2.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "primeicons": "^5.0.0",
     "primeng": "^14.0.0",
