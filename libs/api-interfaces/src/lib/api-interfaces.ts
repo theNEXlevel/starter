@@ -1,4 +1,4 @@
-import { User } from 'prisma/prisma-client';
+import { User } from './prisma'
 
 export interface UserApp extends User {
   accessToken?: string;
