@@ -1,29 +1,22 @@
 <form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="submit()">
   <div class="field">
-    <label for="email" class="d-block">Email</label>
-    <input
-      type="text"
-      class="form-control"
-      id="email"
-      pInputText
-      formControlName="email"
-      [ngClass]="{ 'is-invalid': ngForm.submitted && (email?.errors?.['required'] || email?.errors?.['email']) }"
-    />
-    <small class="text-danger" *ngIf="ngForm.submitted && email?.errors?.['required']">Email is required</small>
-    <small class="text-danger" *ngIf="ngForm.submitted && email?.errors?.['email']">Email must be valid</small>
+    <label for="email" class="d-block"
+      >Email <small class="text-red-500"><i class="fa-solid fa-asterisk"></i></small
+    ></label>
+    <input class="block" type="text" id="email" pInputText formControlName="email" />
+    <div>
+      <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['required']">Email is required</small>
+      <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['email']">Email must be valid</small>
+    </div>
   </div>
-  <div class="field mt-3">
-    <label for="password" class="d-block">Password</label>
-    <input
-      type="password"
-      class="form-control"
-      id="password"
-      pInputText
-      formControlName="password"
-      [ngClass]="{ 'is-invalid': ngForm.submitted && password?.errors }"
-    />
-    <small class="text-danger" *ngIf="ngForm.submitted && password?.errors?.['required']">Password is required</small>
+  <div class="field">
+    <label for="password" class="d-block"
+      >Password <small class="text-red-500"><i class="fa-solid fa-asterisk"></i></small
+    ></label>
+    <input class="block" type="password" id="password" pInputText formControlName="password" />
+    <div>
+      <small class="text-red-500" *ngIf="password?.dirty && password?.errors?.['required']">Password is required</small>
+    </div>
   </div>
-  <small class="d-block text-danger mt-3" *ngIf="error$ | async as err">{{ err.error.message }}</small>
-  <button type="submit" class="btn btn-primary mt-3">Login</button>
+  <p-button type="submit" label="Login" class="cursor-pointer" icon="fa-solid fa-right-to-bracket"></p-button>
 </form>

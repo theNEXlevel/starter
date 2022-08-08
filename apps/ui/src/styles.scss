@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import 'bootstrap/scss/bootstrap';
+@import './styles/reboot';
 // @import 'primeng/resources/themes/md-light-indigo/theme.css'; // LIGHT MODE
 @import 'primeng/resources/themes/md-dark-indigo/theme.css'; // DARK MODE
 @import '@fortawesome/fontawesome-free/css/all.min.css';
+@import 'primeng/resources/primeng.min.css';
+@import 'primeicons/primeicons.css';
+@import 'primeflex/primeflex.css';

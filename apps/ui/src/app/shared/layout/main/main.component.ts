@@ -1,4 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { tap } from 'rxjs';
+import { ErrorRepository } from '../../state/error.respository';
 
 @Component({
   selector: 'starter-main',
@@ -6,4 +9,17 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./main.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainComponent {}
+export class MainComponent implements OnInit {
+  error$ = this.errorRepo.error$.pipe(
+    tap((err) => {
+      if (err.error.message) {
+        this.messageSvc.add({ severity: 'error', summary: `${err.error.error}`, detail: `${err.error.message}` });
+      }
+    })
+  );
+  constructor(private messageSvc: MessageService, private errorRepo: ErrorRepository) {}
+
+  ngOnInit(): void {
+    this.error$.subscribe();
+  }
+}
