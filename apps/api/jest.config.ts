@@ -8,8 +8,10 @@ export default {
     },
   },
   testEnvironment: 'node',
+  clearMocks: true,
+  collectCoverage: true,
   transform: {
-    '^.+\\.[tj]s$': 'ts-jest',
+    '^.+\\.[t]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/api',
