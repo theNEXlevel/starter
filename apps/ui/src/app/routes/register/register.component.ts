@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Login } from '@starter/api-interfaces';
-import { OverlayPanel } from 'primeng/overlaypanel';
 import { BehaviorSubject } from 'rxjs';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
-  selector: 'starter-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'starter-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
+export class RegisterComponent {
   loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
 
@@ -27,10 +27,7 @@ export class LoginComponent {
   get password() {
     return this.form.get('password');
   }
-
-  @Input() overlay!: OverlayPanel;
-  
-  constructor(private fb: NonNullableFormBuilder, private authSvc: AuthService) {}
+  constructor(private fb: NonNullableFormBuilder, private authSvc: AuthService, private router: Router) {}
 
   submit(): void {
     this.email?.markAsDirty();
@@ -39,9 +36,10 @@ export class LoginComponent {
       return;
     }
     this.loadingSubject.next(true);
-    this.authSvc.login(this.form.value as Login).subscribe({
+    this.authSvc.register(this.form.value as Login).subscribe({
       next: () => {
         this.loadingSubject.next(false);
+        this.router.navigate(['dashboard']);
       },
       error: () => {
         this.loadingSubject.next(false);

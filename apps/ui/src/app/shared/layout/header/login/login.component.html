@@ -3,7 +3,7 @@
     <label for="email" class="d-block"
       >Email <small class="text-red-500"><i class="fa-solid fa-asterisk"></i></small
     ></label>
-    <input class="block" type="text" id="email" pInputText formControlName="email" />
+    <input type="text" id="email" pInputText formControlName="email" [ngStyle]="{ width: '100%' }" />
     <div>
       <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['required']">Email is required</small>
       <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['email']">Email must be valid</small>
@@ -13,10 +13,25 @@
     <label for="password" class="d-block"
       >Password <small class="text-red-500"><i class="fa-solid fa-asterisk"></i></small
     ></label>
-    <input class="block" type="password" id="password" pInputText formControlName="password" />
+    <input type="password" id="password" pInputText formControlName="password" [ngStyle]="{ width: '100%' }" />
     <div>
       <small class="text-red-500" *ngIf="password?.dirty && password?.errors?.['required']">Password is required</small>
     </div>
   </div>
-  <p-button type="submit" label="Login" class="cursor-pointer" icon="fa-solid fa-right-to-bracket"></p-button>
+  <button
+    pButton
+    type="submit"
+    [loading]="!!(loading$ | async)"
+    label="Login"
+    icon="fa-solid fa-right-to-bracket"
+  ></button>
+  <a
+    routerLink="register"
+    type="button"
+    pButton
+    (click)="this.overlay.hide()"
+    label="Create an Account"
+    class="p-button-secondary ml-3"
+    icon="fa-solid fa-user-plus"
+  ></a>
 </form>

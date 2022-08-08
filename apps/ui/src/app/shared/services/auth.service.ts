@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Error, Login, UserApp } from '@starter/api-interfaces';
-import { catchError, EMPTY, tap } from 'rxjs';
+import { catchError, tap, throwError } from 'rxjs';
 import { UserRepository } from '../state/user.repository';
 import { ErrorRepository } from '../state/error.respository';
 
@@ -20,7 +20,18 @@ export class AuthService {
       catchError((err: HttpErrorResponse) => {
         const error: Error = err.error;
         this.errorRepo.setError(error);
-        return EMPTY;
+        return throwError(() => err);
+      })
+    );
+  }
+
+  register(data: Login) {
+    return this.http.post<UserApp>(`${this.baseUrl}/register`, data).pipe(
+      tap(this.userRepo.setUser),
+      catchError((err: HttpErrorResponse) => {
+        const error: Error = err.error;
+        this.errorRepo.setError(error);
+        return throwError(() => err);
       })
     );
   }

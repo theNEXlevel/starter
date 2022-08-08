@@ -17,6 +17,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./routes/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
+      {
+        path: 'register',
+        loadChildren: () =>
+          import('./routes/register/register.module').then((m) => m.RegisterModule),
+      },
     ],
   },
   {

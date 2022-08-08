@@ -5,8 +5,9 @@
   <ng-template pTemplate="end">
     <div class="flex align-items-center">
       <input type="text" class="mr-2" pInputText placeholder="Search" />
-      <span class="link mr-2" (click)="login.toggle($event)" *ngIf="!user.user">Login</span>
-      <a class="link" routerLink="register" *ngIf="!user.user">Register</a>
+      <span class="link" (click)="login.toggle($event)" *ngIf="!user.user"
+        ><i class="fa-solid fa-right-to-bracket mr-2"> </i>Login / Register</span
+      >
       <span (click)="logoff()" class="cursor-pointer text-primary-500" *ngIf="user.user"
         ><i class="fa-solid fa-power-off block text-center text-2xl"></i> Log Off</span
       >
@@ -16,6 +17,6 @@
 
 <p-overlayPanel #login [dismissable]="false">
   <ng-template pTemplate>
-    <starter-login></starter-login>
+    <starter-login [overlay]="login"></starter-login>
   </ng-template>
 </p-overlayPanel>
