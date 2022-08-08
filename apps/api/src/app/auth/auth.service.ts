@@ -1,18 +1,22 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuthDto } from './dto';
-import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { UserEntity } from '@starter/api-interfaces';
 
 @Injectable()
 export class AuthService {
-  constructor(private prismaSvc: PrismaService, private jwtSvc: JwtService, private configSvc: ConfigService) {}
+  constructor(
+    private prismaSvc: PrismaService,
+    private jwtSvc: JwtService,
+    private configSvc: ConfigService,
+    @Inject('argon') private argon
+  ) {}
   async register(dto: AuthDto) {
     try {
-      const hash = await argon.hash(dto.password);
+      const hash = await this.argon.hash(dto.password);
       const user = await this.prismaSvc.user.create({
         data: {
           email: dto.email,
@@ -38,7 +42,7 @@ export class AuthService {
     if (!user) {
       throw new ForbiddenException('Credentials Incorrect');
     }
-    const pwMatches = await argon.verify(user.hash, dto.password);
+    const pwMatches = await this.argon.verify(user.hash, dto.password);
     if (!pwMatches) {
       throw new ForbiddenException('Credentials Incorrect');
     }
