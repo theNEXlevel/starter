@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Error, Login, UserApp } from '@starter/api-interfaces';
+import { ErrorEntity, Login, UserEntity } from '@starter/api-interfaces';
 import { catchError, tap, throwError } from 'rxjs';
 import { UserRepository } from '../state/user.repository';
 import { ErrorRepository } from '../state/error.respository';
@@ -15,10 +15,10 @@ export class AuthService {
   constructor(private http: HttpClient, private userRepo: UserRepository, private errorRepo: ErrorRepository) {}
 
   login(data: Login) {
-    return this.http.post<UserApp>(`${this.baseUrl}/login`, data).pipe(
+    return this.http.post<UserEntity>(`${this.baseUrl}/login`, data).pipe(
       tap(this.userRepo.setUser),
       catchError((err: HttpErrorResponse) => {
-        const error: Error = err.error;
+        const error: ErrorEntity = err.error;
         this.errorRepo.setError(error);
         return throwError(() => err);
       })
@@ -26,10 +26,10 @@ export class AuthService {
   }
 
   register(data: Login) {
-    return this.http.post<UserApp>(`${this.baseUrl}/register`, data).pipe(
+    return this.http.post<UserEntity>(`${this.baseUrl}/register`, data).pipe(
       tap(this.userRepo.setUser),
       catchError((err: HttpErrorResponse) => {
-        const error: Error = err.error;
+        const error: ErrorEntity = err.error;
         this.errorRepo.setError(error);
         return throwError(() => err);
       })

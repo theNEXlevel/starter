@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { AuthDto } from './dto';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
-import { UserApp } from '@starter/api-interfaces';
+import { UserEntity } from '@starter/api-interfaces';
 
 @Injectable()
 export class AuthService {
@@ -45,7 +45,7 @@ export class AuthService {
     return this.signToken(user);
   }
 
-  async signToken(user: UserApp): Promise<UserApp> {
+  async signToken(user: UserEntity): Promise<UserEntity> {
     const payload = {
       sub: user.id,
       email: user.email,

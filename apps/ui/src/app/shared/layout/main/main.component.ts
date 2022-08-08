@@ -13,7 +13,11 @@ export class MainComponent implements OnInit {
   error$ = this.errorRepo.error$.pipe(
     tap((err) => {
       if (err.error.message) {
-        this.messageSvc.add({ severity: 'error', summary: `${err.error.error}`, detail: `${err.error.message}` });
+        this.messageSvc.add({
+          severity: 'error',
+          summary: `${err.error.error}`,
+          detail: `${err.error.message.join(', ')}`,
+        });
       }
     })
   );

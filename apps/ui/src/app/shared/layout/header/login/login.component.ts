@@ -29,7 +29,7 @@ export class LoginComponent {
   }
 
   @Input() overlay!: OverlayPanel;
-  
+
   constructor(private fb: NonNullableFormBuilder, private authSvc: AuthService) {}
 
   submit(): void {

@@ -1,16 +1,25 @@
 <p-menubar [model]="items" *ngIf="user$ | async as user">
   <ng-template pTemplate="start">
-    <a routerLink="" class="logo mr-3"> <i class="fa-solid fa-building"></i></a>
+    <a routerLink="" class="logo mr-3"> <i class="fa-solid fa-building"></i> Starter</a>
   </ng-template>
   <ng-template pTemplate="end">
     <div class="flex align-items-center">
       <input type="text" class="mr-2" pInputText placeholder="Search" />
-      <span class="link" (click)="login.toggle($event)" *ngIf="!user.user"
-        ><i class="fa-solid fa-right-to-bracket mr-2"> </i>Login / Register</span
-      >
-      <span (click)="logoff()" class="cursor-pointer text-primary-500" *ngIf="user.user"
-        ><i class="fa-solid fa-power-off block text-center text-2xl"></i> Log Off</span
-      >
+      <button
+        pButton
+        (click)="login.toggle($event)"
+        icon="fa-solid fa-right-to-bracket"
+        label="Login / Register"
+        *ngIf="!user.user"
+      ></button>
+      <button
+        pButton
+        (click)="logoff()"
+        class="p-button-secondary"
+        icon="fa-solid fa-power-off"
+        *ngIf="user.user"
+        label="Log Off"
+      ></button>
     </div>
   </ng-template>
 </p-menubar>

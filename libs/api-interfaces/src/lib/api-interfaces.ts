@@ -1,7 +1,27 @@
-import { User } from './prisma'
+import { User } from './prisma';
+import { ApiProperty } from '@nestjs/swagger';
 
-export interface UserApp extends User {
+export class UserEntity implements User {
+  @ApiProperty()
   accessToken?: string;
+
+  @ApiProperty()
+  name!: string | null;
+
+  @ApiProperty()
+  id!: string;
+
+  @ApiProperty()
+  email!: string;
+
+  @ApiProperty()
+  hash!: string;
+
+  @ApiProperty()
+  createdAt!: Date;
+
+  @ApiProperty()
+  updatedAt!: Date;
 }
 
 export interface Login {
@@ -9,8 +29,13 @@ export interface Login {
   password: string;
 }
 
-export interface Error {
+export class ErrorEntity {
+  @ApiProperty()
   error?: string;
-  message: string | string[];
+
+  @ApiProperty({ type: [String] })
+  message!: string[];
+
+  @ApiProperty()
   statusCode?: number;
 }

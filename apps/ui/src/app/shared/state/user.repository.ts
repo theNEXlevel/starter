@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { createStore, select, setProp, withProps } from '@ngneat/elf';
 import { localStorageStrategy, persistState } from '@ngneat/elf-persist-state';
-import { UserApp } from '@starter/api-interfaces';
+import { UserEntity } from '@starter/api-interfaces';
 
 export interface UserProps {
-  user?: UserApp;
+  user?: UserEntity;
 }
 
 export const store = createStore({ name: 'user' }, withProps<UserProps>({}));
@@ -19,7 +19,7 @@ export class UserRepository {
   user$ = store.pipe(select((user) => user));
   user = store.getValue();
 
-  setUser(user: UserApp) {
+  setUser(user: UserEntity) {
     store.update(setProp('user', user));
   }
 

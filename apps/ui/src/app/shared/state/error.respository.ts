@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { createStore, select, setProp, withProps } from '@ngneat/elf';
-import { Error } from '@starter/api-interfaces';
+import { ErrorEntity } from '@starter/api-interfaces';
 
 export interface ErrorProps {
-  error: Error;
+  error: ErrorEntity;
 }
 
 const initialState: ErrorProps = {
   error: {
-    message: '',
+    message: [''],
   },
 };
 
@@ -19,7 +19,7 @@ export class ErrorRepository {
   error$ = store.pipe(select((error) => error));
   error = store.getValue();
 
-  setError(error: Error) {
+  setError(error: ErrorEntity) {
     store.update(setProp('error', error));
   }
 

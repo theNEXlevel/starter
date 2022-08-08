@@ -14,13 +14,3 @@
 .logoff {
   cursor: pointer;
 }
-
-.link {
-  text-decoration: none;
-  color: var(--primary-500);
-  cursor: pointer;
-
-  &:hover {
-    color: var(--primary-600);
-  }
-}
