@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
         this.messageSvc.add({
           severity: 'error',
           summary: `${err.error.error}`,
-          detail: `${err.error.message.join(', ')}`,
+          detail: `${Array.isArray(err.error.message) ? err.error.message.join(', ') : err.error.message}`,
         });
       }
     })

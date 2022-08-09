@@ -6,7 +6,7 @@ jest.mock('./auth.service');
 describe('AuthController', () => {
   let controller: AuthController;
   let mockAuthService: AuthService;
-  const mockDto = {
+  const mockLogin = {
     email: 'test@test.com',
     password: '123',
   };
@@ -27,17 +27,17 @@ describe('AuthController', () => {
 
   describe('register', () => {
     it('should call register on authService', () => {
-      controller.register(mockDto);
+      controller.register(mockLogin);
       expect(mockAuthService.register).toHaveBeenCalledTimes(1);
-      expect(mockAuthService.register).toHaveBeenCalledWith(mockDto);
+      expect(mockAuthService.register).toHaveBeenCalledWith(mockLogin);
     });
   });
 
   describe('login', () => {
     it('should call login on authService', () => {
-      controller.login(mockDto);
+      controller.login(mockLogin);
       expect(mockAuthService.login).toHaveBeenCalledTimes(1);
-      expect(mockAuthService.login).toHaveBeenCalledWith(mockDto);
+      expect(mockAuthService.login).toHaveBeenCalledWith(mockLogin);
     });
   });
 });

@@ -1,5 +1,6 @@
 import { User } from './prisma';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class UserEntity implements User {
   @ApiProperty()
@@ -24,18 +25,27 @@ export class UserEntity implements User {
   updatedAt!: Date;
 }
 
-export interface Login {
-  email: string;
-  password: string;
+export class Login {
+  @IsEmail()
+  @IsNotEmpty()
+  @ApiProperty({ required: true })
+  email!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ required: true })
+  password!: string;
 }
 
 export class ErrorEntity {
-  @ApiProperty()
+  @ApiProperty({ required: false })
   error?: string;
 
-  @ApiProperty({ type: [String] })
-  message!: string[];
+  @ApiProperty({
+    oneOf: [{ type: 'string' }, { type: 'Array<string>' }],
+  })
+  message!: string[] | string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   statusCode?: number;
 }

@@ -3,10 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
-import { UserEntity } from '@starter/api-interfaces';
+import { Login, UserEntity } from '@starter/api-interfaces';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuthService } from './auth.service';
-import { AuthDto } from './dto';
 jest.mock('../prisma/prisma.service');
 jest.mock('@nestjs/jwt');
 jest.mock('@nestjs/config');
@@ -24,7 +23,7 @@ const configMock = {
   get: jest.fn().mockReturnValue('123'),
 };
 
-const mockDto: AuthDto = {
+const mockLogin: Login = {
   email: 'test@test.com',
   password: '123',
 };
@@ -71,12 +70,12 @@ describe('AuthService', () => {
 
   describe('register', () => {
     it('should call hash on argon with the password', async () => {
-      await service.register(mockDto);
+      await service.register(mockLogin);
       expect(argonMock.hash).toHaveBeenCalledTimes(1);
-      expect(argonMock.hash).toHaveBeenCalledWith(mockDto.password);
+      expect(argonMock.hash).toHaveBeenCalledWith(mockLogin.password);
     });
     it('should call user.create on prismaSvc with data', async () => {
-      await service.register(mockDto);
+      await service.register(mockLogin);
       const createParams = {
         data: {
           email: 'test@test.com',
@@ -88,7 +87,7 @@ describe('AuthService', () => {
     });
     it('should call signToken method with the user data', async () => {
       service.signToken = jest.fn().mockReturnValueOnce(mockUser);
-      const returnVal = await service.register(mockDto);
+      const returnVal = await service.register(mockLogin);
       expect(service.signToken).toHaveBeenCalledTimes(1);
       expect(service.signToken).toHaveBeenCalledWith(mockUser);
       expect(returnVal).toEqual(mockUser);
@@ -97,14 +96,14 @@ describe('AuthService', () => {
       const error = new Error('error!');
       const throwErrorMock = jest.fn().mockRejectedValueOnce(error);
       prismaSvc.user.create = throwErrorMock;
-      await expect(service.register(mockDto)).rejects.toEqual(error);
+      await expect(service.register(mockLogin)).rejects.toEqual(error);
     });
     it('should error and throw credentials taken', async () => {
       const error = new PrismaClientKnownRequestError('Credentials taken', 'P2002', '1.0');
       const exception = new ForbiddenException('Credentials taken');
       const throwErrorMock = jest.fn().mockRejectedValueOnce(error);
       prismaSvc.user.create = throwErrorMock;
-      await expect(service.register(mockDto)).rejects.toEqual(exception);
+      await expect(service.register(mockLogin)).rejects.toEqual(exception);
     });
   });
 
@@ -112,35 +111,35 @@ describe('AuthService', () => {
     it('should call user.findUnique on prismaSvc', async () => {
       const data = {
         where: {
-          email: mockDto.email,
+          email: mockLogin.email,
         },
       };
-      await service.login(mockDto);
+      await service.login(mockLogin);
       expect(prismaSvc.user.findUnique).toHaveBeenCalledTimes(1);
       expect(prismaSvc.user.findUnique).toHaveBeenCalledWith(data);
     });
     it('should throw a ForbiddenException if the user is not found', async () => {
       const error = new ForbiddenException('Credentials Incorrect');
       prismaSvc.user.findUnique = jest.fn().mockReturnValueOnce(null);
-      await expect(service.login(mockDto)).rejects.toEqual(error);
+      await expect(service.login(mockLogin)).rejects.toEqual(error);
     });
     it('should call verify on argon with params', async () => {
       prismaSvc.user.findUnique = jest.fn().mockReturnValueOnce(mockUser);
-      await service.login(mockDto);
+      await service.login(mockLogin);
       expect(argonMock.verify).toHaveBeenCalledTimes(1);
-      expect(argonMock.verify).toHaveBeenCalledWith(mockUser.hash, mockDto.password);
+      expect(argonMock.verify).toHaveBeenCalledWith(mockUser.hash, mockLogin.password);
     });
     it('should throw a ForbiddenException if password does not match', async () => {
       const error = new ForbiddenException('Credentials Incorrect');
       prismaSvc.user.findUnique = jest.fn().mockReturnValueOnce(mockUser);
       argonMock.verify.mockReturnValueOnce(false);
-      await expect(service.login(mockDto)).rejects.toEqual(error);
+      await expect(service.login(mockLogin)).rejects.toEqual(error);
     });
     it('should call and return the signToken with params', async () => {
       service.signToken = jest.fn().mockReturnValueOnce(mockUser);
       prismaSvc.user.findUnique = jest.fn().mockReturnValueOnce(mockUser);
       argonMock.verify = jest.fn().mockReturnValueOnce(true);
-      const returnVal = await service.login(mockDto);
+      const returnVal = await service.login(mockLogin);
       expect(service.signToken).toHaveBeenCalledTimes(1);
       expect(service.signToken).toHaveBeenCalledWith(mockUser);
       expect(returnVal).toEqual(mockUser);
