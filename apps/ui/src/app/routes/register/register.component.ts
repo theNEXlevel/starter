@@ -1,10 +1,15 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from '@starter/api-interfaces';
 import { MessageService } from 'primeng/api';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
+
+export interface LoginForm {
+  email: AbstractControl<string>;
+  password: AbstractControl<string>;
+}
 
 @Component({
   selector: 'starter-register',
@@ -12,28 +17,28 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent {
-  loadingSubject = new BehaviorSubject<boolean>(false);
-  loading$ = this.loadingSubject.asObservable();
-
-  form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-  });
+export class RegisterComponent implements OnInit {
+  loadingSubject!: BehaviorSubject<boolean>;
+  loading$!: Observable<boolean>;
+  form!: FormGroup;
 
   get email() {
     return this.form.get('email');
   }
-
   get password() {
     return this.form.get('password');
   }
-  constructor(
-    private fb: NonNullableFormBuilder,
-    private authSvc: AuthService,
-    private router: Router,
-    private messageSvc: MessageService
-  ) {}
+
+  constructor(private authSvc: AuthService, private router: Router, private messageSvc: MessageService) {}
+
+  ngOnInit(): void {
+    this.loadingSubject = new BehaviorSubject<boolean>(false);
+    this.loading$ = this.loadingSubject.asObservable();
+    this.form = new FormGroup<LoginForm>({
+      email: new FormControl<string>('', { validators: [Validators.required, Validators.email], nonNullable: true }),
+      password: new FormControl<string>('', { validators: [Validators.required], nonNullable: true }),
+    });
+  }
 
   submit(): void {
     this.email?.markAsDirty();
