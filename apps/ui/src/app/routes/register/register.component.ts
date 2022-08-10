@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from '@starter/api-interfaces';
+import { MessageService } from 'primeng/api';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 
@@ -27,7 +28,12 @@ export class RegisterComponent {
   get password() {
     return this.form.get('password');
   }
-  constructor(private fb: NonNullableFormBuilder, private authSvc: AuthService, private router: Router) {}
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private authSvc: AuthService,
+    private router: Router,
+    private messageSvc: MessageService
+  ) {}
 
   submit(): void {
     this.email?.markAsDirty();
@@ -38,6 +44,7 @@ export class RegisterComponent {
     this.loadingSubject.next(true);
     this.authSvc.register(this.form.value as Login).subscribe({
       next: () => {
+        this.messageSvc.add({ severity: 'success', summary: 'Registered', detail: 'You have been logged in!' });
         this.loadingSubject.next(false);
         this.router.navigate(['dashboard']);
       },

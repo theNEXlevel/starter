@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Login } from '@starter/api-interfaces';
+import { MessageService } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
@@ -30,7 +31,7 @@ export class LoginComponent {
 
   @Input() overlay!: OverlayPanel;
 
-  constructor(private fb: NonNullableFormBuilder, private authSvc: AuthService) {}
+  constructor(private fb: NonNullableFormBuilder, private authSvc: AuthService, private messageSvc: MessageService) {}
 
   submit(): void {
     this.email?.markAsDirty();
@@ -42,6 +43,7 @@ export class LoginComponent {
     this.authSvc.login(this.form.value as Login).subscribe({
       next: () => {
         this.loadingSubject.next(false);
+        this.messageSvc.add({ severity: 'success', summary: 'Logged in', detail: 'You have been logged in!' });
       },
       error: () => {
         this.loadingSubject.next(false);

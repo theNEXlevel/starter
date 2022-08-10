@@ -2,14 +2,17 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AuthService } from '../../shared/services/auth.service';
 
 import { RegisterComponent } from './register.component';
 
 jest.mock('../../shared/services/auth.service');
+
 const routerMock = {
   navigate: jest.fn(),
 };
+
 const fbMock = {
   group: jest.fn().mockReturnValue({
     invalid: false,
@@ -17,6 +20,10 @@ const fbMock = {
     email: '123',
     password: '123',
   }),
+};
+
+const mockMsgSvc = {
+  add: jest.fn(),
 };
 
 describe('RegisterComponent', () => {
@@ -31,6 +38,7 @@ describe('RegisterComponent', () => {
         { provide: NonNullableFormBuilder, useValue: fbMock },
         AuthService,
         { provide: Router, useValue: routerMock },
+        { provide: MessageService, useValue: mockMsgSvc },
       ],
     }).compileComponents();
 

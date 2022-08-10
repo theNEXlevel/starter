@@ -1,6 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NonNullableFormBuilder } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { AuthService } from '../../../services/auth.service';
 
 import { LoginComponent } from './login.component';
@@ -16,6 +17,10 @@ const fbMock = {
   }),
 };
 
+const mockMsgSvc = {
+  add: jest.fn(),
+};
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
@@ -24,7 +29,11 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [LoginComponent],
-      providers: [{ provide: NonNullableFormBuilder, useValue: fbMock }, AuthService],
+      providers: [
+        { provide: NonNullableFormBuilder, useValue: fbMock },
+        AuthService,
+        { provide: MessageService, useValue: mockMsgSvc },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
