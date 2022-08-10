@@ -7,7 +7,7 @@
       <input type="text" class="mr-2" pInputText placeholder="Search" />
       <button
         pButton
-        (click)="login.toggle($event)"
+        (click)="login?.toggle($event)"
         icon="fa-solid fa-right-to-bracket"
         label="Login / Register"
         *ngIf="!user.user"

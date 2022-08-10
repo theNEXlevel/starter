@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
-import { tap } from 'rxjs';
-import { UserRepository } from '../../state/user.repository';
+import { Observable } from 'rxjs';
+import { UserProps, UserRepository } from '../../state/user.repository';
 
 @Component({
   selector: 'starter-header',
@@ -12,20 +12,13 @@ import { UserRepository } from '../../state/user.repository';
 })
 export class HeaderComponent implements OnInit {
   items!: MenuItem[];
-
-  user$ = this.userRepo.user$.pipe(
-    tap((user) => {
-      if (user.user) {
-        this.login?.hide();
-      }
-    })
-  );
-
+  user$!: Observable<UserProps>;
   @ViewChild('login') login?: OverlayPanel;
 
   constructor(private userRepo: UserRepository) {}
 
   ngOnInit(): void {
+    this.user$ = this.userRepo.user$;
     this.items = [
       {
         label: 'Dashboard',

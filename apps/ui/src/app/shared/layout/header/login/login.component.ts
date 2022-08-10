@@ -42,6 +42,7 @@ export class LoginComponent {
     this.loadingSubject.next(true);
     this.authSvc.login(this.form.value as Login).subscribe({
       next: () => {
+        this.overlay.hide();
         this.loadingSubject.next(false);
         this.messageSvc.add({ severity: 'success', summary: 'Logged in', detail: 'You have been logged in!' });
       },
