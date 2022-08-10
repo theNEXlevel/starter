@@ -9,6 +9,8 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
+  clearMocks: true,
+  collectCoverage: true,
   coverageDirectory: '../../coverage/apps/ui',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
