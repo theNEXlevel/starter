@@ -23,4 +23,8 @@ describe('FooterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set footerDate to the current year', () => {
+    expect(component.footerDate).toEqual(new Date().getFullYear());
+  });
 });

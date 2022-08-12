@@ -1,9 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AbstractControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { EMPTY, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 
 import { RegisterComponent } from './register.component';
@@ -28,7 +28,6 @@ describe('RegisterComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [RegisterComponent],
       providers: [
-        NonNullableFormBuilder,
         AuthService,
         { provide: Router, useValue: routerMock },
         { provide: MessageService, useValue: mockMsgSvc },
@@ -38,7 +37,7 @@ describe('RegisterComponent', () => {
     fixture = TestBed.createComponent(RegisterComponent);
     authService = TestBed.inject(AuthService);
     component = fixture.componentInstance;
-    authService.register = jest.fn().mockReturnValue(EMPTY);
+    authService.register = jest.fn().mockReturnValue(of({}));
     fixture.detectChanges();
   });
 
@@ -79,8 +78,8 @@ describe('RegisterComponent', () => {
       component.password?.setValue('123');
       component.loadingSubject.next = jest.fn();
       component.submit();
-      expect(component.loadingSubject.next).toHaveBeenCalledTimes(1);
-      expect(component.loadingSubject.next).toHaveBeenCalledWith(true);
+      expect(component.loadingSubject.next).toHaveBeenCalledTimes(2);
+      expect(component.loadingSubject.next).toHaveBeenNthCalledWith(1, true);
     });
     it('should call register of authSvc with form value', () => {
       component.email?.setValue('test@test.com');
@@ -90,10 +89,10 @@ describe('RegisterComponent', () => {
       expect(authService.register).toHaveBeenCalledWith(component.form.value);
     });
     it('should call add on messageSvc with params on success', () => {
+      authService.register = jest.fn().mockReturnValue(of({}));
       component.email?.setValue('test@test.com');
       component.password?.setValue('123');
       component.submit();
-      fixture.detectChanges();
       authService.register(component.form.value).subscribe(() => {
         expect(mockMsgSvc.add).toHaveBeenCalledTimes(1);
         expect(mockMsgSvc.add).toHaveBeenCalledWith({
@@ -104,6 +103,7 @@ describe('RegisterComponent', () => {
       });
     });
     it('should call next on loadingSubject with false value on success', () => {
+      authService.register = jest.fn().mockReturnValue(of({}));
       component.email?.setValue('test@test.com');
       component.password?.setValue('123');
       component.loadingSubject.next = jest.fn();
@@ -114,6 +114,7 @@ describe('RegisterComponent', () => {
       });
     });
     it('should call navigate on router with dashboard on success', () => {
+      authService.register = jest.fn().mockReturnValue(of({}));
       component.email?.setValue('test@test.com');
       component.password?.setValue('123');
       component.submit();

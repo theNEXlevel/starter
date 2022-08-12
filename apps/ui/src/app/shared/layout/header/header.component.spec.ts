@@ -46,5 +46,10 @@ describe('HeaderComponent', () => {
       component.logoff();
       expect(userRepo.resetUser).toHaveBeenCalledTimes(1);
     });
+
+    it('should reset the user', () => {
+      component.logoff();
+      expect(userRepo.user).toEqual({});
+    });
   });
 });

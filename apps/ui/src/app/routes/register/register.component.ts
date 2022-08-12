@@ -1,15 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Login } from '@starter/api-interfaces';
+import { Login, LoginForm } from '@starter/api-interfaces';
 import { MessageService } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
-
-export interface LoginForm {
-  email: AbstractControl<string>;
-  password: AbstractControl<string>;
-}
 
 @Component({
   selector: 'starter-register',

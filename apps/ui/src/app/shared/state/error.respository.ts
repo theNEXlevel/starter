@@ -8,7 +8,7 @@ export interface ErrorProps {
 
 const initialState: ErrorProps = {
   error: {
-    message: [''],
+    message: '',
   },
 };
 
@@ -21,9 +21,5 @@ export class ErrorRepository {
 
   setError(error: ErrorEntity) {
     store.update(setProp('error', error));
-  }
-
-  resetError() {
-    store.update(setProp('error', initialState.error));
   }
 }
