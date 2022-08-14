@@ -13,14 +13,12 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { MainComponent } from './layout/main/main.component';
 import { LoginComponent } from './layout/header/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 
 const sharedModules = [ReactiveFormsModule, CommonModule, MenubarModule, InputTextModule, ButtonModule, TabViewModule, CardModule, OverlayPanelModule, ToastModule];
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, MainComponent, LoginComponent],
   imports: sharedModules,
-  exports: sharedModules,
-  providers: [MessageService]
+  exports: sharedModules
 })
 export class SharedModule {}
