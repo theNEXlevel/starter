@@ -1,6 +1,14 @@
 /* eslint-disable */
 export default {
   displayName: 'api',
+  coverageThreshold: {
+    global: {
+      branches: 95,
+      functions: 95,
+      lines: 95,
+      statements: 95,
+    },
+  },
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {

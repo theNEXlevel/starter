@@ -1,7 +1,4 @@
-/* eslint-disable cypress/no-unnecessary-waiting */
 describe('Navigation', () => {
-  beforeEach(() => cy.wait(300));
-  afterEach(() => cy.wait(300));
   // beforeEach(() => cy.visit('/'));
 
   // it('should display home', () => {

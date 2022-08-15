@@ -14,14 +14,10 @@
     "e2e:all": "nx run-many --target=e2e --projects=e2e --configuration=production",
     "build:all": "nx run-many --target=build --projects=ui,api --configuration=production",
     "prod": "npm run lint:all && npm run build:all && npm run test:all && npm run e2e:all",
-    "api:prisma:dev:deploy": "prisma migrate deploy",
-    "api:db:dev:rm": "docker compose -f tools/scripts/docker-compose.yml rm dev-db -sfv",
-    "api:db:dev:up": "docker compose -f tools/scripts/docker-compose.yml up dev-db -d",
-    "api:db:dev:restart": "npm run api:db:dev:rm && npm run api:db:dev:up && sleep 1 && npm run api:prisma:dev:deploy",
-    "api:prisma:test:deploy": "dotenv -e .test.env -- prisma migrate deploy",
-    "api:db:test:rm": "docker compose -f tools/scripts/docker-compose.yml rm test-db -sfv",
-    "api:db:test:up": "docker compose -f tools/scripts/docker-compose.yml up test-db -d",
-    "api:db:test:restart": "npm run api:db:test:rm && npm run api:db:test:up && sleep 1 && npm run api:prisma:test:deploy"
+    "prisma:dev:deploy": "prisma migrate deploy",
+    "db:dev:rm": "docker compose -f tools/scripts/docker-compose.yml rm dev-db -sfv",
+    "db:dev:up": "docker compose -f tools/scripts/docker-compose.yml up dev-db -d",
+    "db:dev": "npm run db:dev:rm && npm run db:dev:up && sleep 1 && npm run prisma:dev:deploy"
   },
   "private": true,
   "dependencies": {

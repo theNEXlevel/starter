@@ -11,8 +11,12 @@
           ></label>
           <input type="text" id="email" pInputText formControlName="email" [ngStyle]="{ width: '100%' }" />
           <div>
-            <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['required']">Email is required</small>
-            <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['email']">Email must be valid</small>
+            <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['required']" data-cy="email-required"
+              >Email is required</small
+            >
+            <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['email']" data-cy="email-pattern"
+              >Email must be valid</small
+            >
           </div>
         </div>
         <div class="field">
@@ -21,13 +25,18 @@
           ></label>
           <input type="password" id="password" pInputText formControlName="password" [ngStyle]="{ width: '100%' }" />
           <div>
-            <small class="text-red-500" *ngIf="password?.dirty && password?.errors?.['required']"
-              >Password is required</small
+            <small
+              class="text-red-500"
+              *ngIf="password?.dirty && password?.errors?.['required']"
+              data-cy="password-required"
             >
+              Password is required
+            </small>
           </div>
         </div>
         <button
           pButton
+          data-cy="register-submit"
           type="submit"
           [loading]="!!(loading$ | async)"
           label="Create an Account"
