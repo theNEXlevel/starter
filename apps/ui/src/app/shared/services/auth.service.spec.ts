@@ -1,25 +1,24 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+
 import { AuthService } from './auth.service';
-import { UserRepository } from '../state/user.repository';
-import { ErrorRepository } from '../state/error.respository';
 import { Login } from '@starter/api-interfaces';
+import { selectMsg, selectUser } from '../../state';
 
 describe('AuthService', () => {
   let httpTestingController: HttpTestingController;
-  let userRepo: UserRepository;
-  let errorRepo: ErrorRepository;
+  let store: MockStore;
   let service: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [UserRepository, ErrorRepository],
+      providers: [provideMockStore({})],
     });
     service = TestBed.inject(AuthService);
-    userRepo = TestBed.inject(UserRepository);
-    errorRepo = TestBed.inject(ErrorRepository);
+    store = TestBed.inject(MockStore);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
@@ -32,21 +31,7 @@ describe('AuthService', () => {
   });
 
   describe('login', () => {
-    it('should call the correct endpoint with data and call setUser on UserRepository', () => {
-      const data: Login = {
-        email: 'test@test.com',
-        password: '123',
-      };
-      userRepo.setUser = jest.fn();
-      service.login(data).subscribe((response) => {
-        expect(response).toBeDefined();
-      });
-      const req = httpTestingController.expectOne(`${service.baseUrl}/login`);
-      expect(req.request.method).toEqual('POST');
-      req.flush(data);
-      expect(userRepo.setUser).toHaveBeenCalledTimes(1);
-    });
-    it('should set the user', () => {
+    it('should call the correct endpoint with data', () => {
       const data: Login = {
         email: 'test@test.com',
         password: '123',
@@ -57,14 +42,25 @@ describe('AuthService', () => {
       const req = httpTestingController.expectOne(`${service.baseUrl}/login`);
       expect(req.request.method).toEqual('POST');
       req.flush(data);
-      expect(userRepo.user).toBeDefined();
     });
-    it('should error and call setError on errorRepo', () => {
+    it('should set the user and set the user in the store', () => {
       const data: Login = {
         email: 'test@test.com',
         password: '123',
       };
-      errorRepo.setError = jest.fn();
+      service.login(data).subscribe((response) => {
+        expect(response).toBeDefined();
+      });
+      const req = httpTestingController.expectOne(`${service.baseUrl}/login`);
+      expect(req.request.method).toEqual('POST');
+      req.flush(data);
+      expect(store.select(selectUser)).toBeDefined();
+    });
+    it('should error and show error message', () => {
+      const data: Login = {
+        email: 'test@test.com',
+        password: '123',
+      };
       const error = { message: 'Fake Error' };
       service.login(data).subscribe((response) => {
         expect(response).toBeDefined();
@@ -72,32 +68,29 @@ describe('AuthService', () => {
       const req = httpTestingController.expectOne(`${service.baseUrl}/login`);
       expect(req.request.method).toEqual('POST');
       req.flush(error, { status: 404, statusText: 'Not Found' });
-      expect(errorRepo.setError).toHaveBeenCalledTimes(1);
-      expect(errorRepo.setError).toHaveBeenCalledWith(error);
+      expect(store.select(selectMsg)).toBeDefined();
     });
   });
 
   describe('register', () => {
-    it('should call the correct endpoint with data and call setUser on UserRepository', () => {
+    it('should call the correct endpoint with data and set the user in the store', () => {
       const data: Login = {
         email: 'test@test.com',
         password: '123',
       };
-      userRepo.setUser = jest.fn();
       service.register(data).subscribe((response) => {
         expect(response).toBeDefined();
       });
       const req = httpTestingController.expectOne(`${service.baseUrl}/register`);
       expect(req.request.method).toEqual('POST');
       req.flush(data);
-      expect(userRepo.setUser).toHaveBeenCalledTimes(1);
+      expect(store.select(selectUser)).toBeDefined();
     });
-    it('should error and call setError on errorRepo', () => {
+    it('should error and show error message', () => {
       const data: Login = {
         email: 'test@test.com',
         password: '123',
       };
-      errorRepo.setError = jest.fn();
       const error = { message: 'Fake Error' };
       service.register(data).subscribe((response) => {
         expect(response).toBeDefined();
@@ -105,8 +98,7 @@ describe('AuthService', () => {
       const req = httpTestingController.expectOne(`${service.baseUrl}/register`);
       expect(req.request.method).toEqual('POST');
       req.flush(error, { status: 404, statusText: 'Not Found' });
-      expect(errorRepo.setError).toHaveBeenCalledTimes(1);
-      expect(errorRepo.setError).toHaveBeenCalledWith(error);
+      expect(store.select(selectMsg)).toBeDefined();
     });
   });
 });

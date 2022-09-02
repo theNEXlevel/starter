@@ -1,29 +1,48 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ErrorRepository } from '../../state/error.respository';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { selectMsg } from '../../../state';
 
 import { MainComponent } from './main.component';
 
-const mockMsgSvc = {
-  add: jest.fn(),
+const mockMatSnackBar = {
+  open: jest.fn(),
 };
+const initialState = { msg: {} };
 
 describe('MainComponent', () => {
   let component: MainComponent;
-  let errorRepo: ErrorRepository;
+  let store: MockStore;
   let fixture: ComponentFixture<MainComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  afterEach(() => {
+    store.resetSelectors();
+  });
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       declarations: [MainComponent],
-      providers: [ErrorRepository],
+      providers: [
+        provideMockStore({
+          initialState: initialState,
+          selectors: [
+            {
+              selector: selectMsg,
+              value: {},
+            },
+          ],
+        }),
+        { provide: MatSnackBar, useValue: mockMatSnackBar },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MainComponent);
-    errorRepo = TestBed.inject(ErrorRepository);
+    store = TestBed.inject(MockStore);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -33,22 +52,18 @@ describe('MainComponent', () => {
   });
 
   it('should not call messageSvc.add when initialized', () => {
-    expect(mockMsgSvc.add).not.toHaveBeenCalled();
+    expect(mockMatSnackBar.open).not.toHaveBeenCalled();
   });
 
-  it('should call add on messageService when there is an error', () => {
+  it('should call open on matSnackBar when there is an error', () => {
     const error = {
       error: '123',
       message: '456',
     };
-    const svcMsg = {
-      severity: 'error',
-      summary: error.error,
-      detail: error.message,
-    };
-    errorRepo.setError(error);
-    expect(mockMsgSvc.add).toHaveBeenCalledTimes(3);
-    expect(mockMsgSvc.add).toHaveBeenNthCalledWith(3, svcMsg);
+    const mySelector = store.overrideSelector(selectMsg, error);
+    mySelector.setResult(error);
+    store.refreshState();
+    expect(mockMatSnackBar.open).toHaveBeenCalledTimes(1);
   });
 
   it('should call add on messageService when there is an error array', () => {
@@ -56,14 +71,10 @@ describe('MainComponent', () => {
       error: '123',
       message: ['456', '789'],
     };
-    const svcMsg = {
-      severity: 'error',
-      summary: error.error,
-      detail: error.message.join(', '),
-    };
-    errorRepo.setError(error);
-    expect(mockMsgSvc.add).toHaveBeenCalledTimes(5);
-    expect(mockMsgSvc.add).toHaveBeenNthCalledWith(5, svcMsg);
+    const mySelector = store.overrideSelector(selectMsg, error);
+    mySelector.setResult(error);
+    store.refreshState();
+    expect(mockMatSnackBar.open).toHaveBeenCalledTimes(1);
   });
 
   describe('ngOnInit', () => {

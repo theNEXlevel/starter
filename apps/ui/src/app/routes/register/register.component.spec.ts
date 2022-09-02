@@ -1,11 +1,16 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 
 import { RegisterComponent } from './register.component';
+
+const mockMatSnackBar = {
+  open: jest.fn(),
+};
 
 jest.mock('../../shared/services/auth.service');
 
@@ -28,6 +33,7 @@ describe('RegisterComponent', () => {
       declarations: [RegisterComponent],
       providers: [
         AuthService,
+        { provide: MatSnackBar, useValue: mockMatSnackBar },
         { provide: Router, useValue: routerMock },
       ],
     }).compileComponents();

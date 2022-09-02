@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { tap } from 'rxjs';
-import { ErrorRepository } from '../../state/error.respository';
+import { Store } from '@ngrx/store';
+import { filter, tap } from 'rxjs';
+import { selectMsg } from '../../../state';
 
 @Component({
   selector: 'starter-main',
@@ -10,25 +11,22 @@ import { ErrorRepository } from '../../state/error.respository';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainComponent implements OnInit {
-  error$ = this.errorRepo.error$.pipe(
+  error$ = this.store.select(selectMsg).pipe(
+    filter((err) => !!err.message),
     tap((err) => {
-      if (err.error.message) {
-        this.snackBar.open(
-          `${err.error.error ?? 'Error'} - ${
-            Array.isArray(err.error.message) ? err.error.message.join(', ') : err.error.message
-          }`,
-          undefined,
-          {
-            horizontalPosition: 'end',
-            verticalPosition: 'top',
-            panelClass: 'notif-error',
-            duration: 3000,
-          }
-        );
-      }
+      this.snackBar.open(
+        `${err.error ?? 'Error'} - ${Array.isArray(err.message) ? err.message.join(', ') : err.message}`,
+        undefined,
+        {
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+          panelClass: 'notif-error',
+          duration: 3000,
+        }
+      );
     })
   );
-  constructor(private errorRepo: ErrorRepository, private snackBar: MatSnackBar) {}
+  constructor(private store: Store, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.error$.subscribe();

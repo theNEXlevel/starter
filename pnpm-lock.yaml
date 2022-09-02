@@ -27,9 +27,7 @@ specifiers:
   '@nestjs/schematics': ^9.0.0
   '@nestjs/swagger': ^6.0.5
   '@nestjs/testing': ^9.0.0
-  '@ngneat/elf': ^2.1.0
-  '@ngneat/elf-entities': ^4.3.1
-  '@ngneat/elf-persist-state': ^1.1.3
+  '@ngrx/store': ^14.3.0
   '@nrwl/angular': 14.5.2
   '@nrwl/cli': 14.5.2
   '@nrwl/cypress': 14.5.2
@@ -87,9 +85,7 @@ dependencies:
   '@nestjs/passport': 9.0.0_lzwobzvlbs6mk2ist2cogkss2e
   '@nestjs/platform-express': 9.0.8_cw6o3dkuyuli4a5gq7b223evly
   '@nestjs/swagger': 6.0.5_t5c7ncqnk2fwu54zrommbwzp4i
-  '@ngneat/elf': 2.1.0_typescript@4.7.4
-  '@ngneat/elf-entities': 4.3.1
-  '@ngneat/elf-persist-state': 1.1.3
+  '@ngrx/store': 14.3.0_gxa6eshox3bd5jdbjjgcojykiu
   '@nrwl/angular': 14.5.2_spw4wxgdb2v5xujqtndf6y634u
   argon2: 0.28.7
   class-transformer: 0.5.1
@@ -3411,20 +3407,15 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@ngneat/elf-entities/4.3.1:
-    resolution: {integrity: sha512-CoCWgO8XsHN9bJOQHC517ZbYEEmRQrPEgMMoVrV210U9Q43/yfyEeRoyt2AOvw1PB8d5/I+/VqwHKVxJkuRFBA==}
-    dev: false
-
-  /@ngneat/elf-persist-state/1.1.3:
-    resolution: {integrity: sha512-jhjnn+Rlz5f4+tqJ0Ed28V2wFur9EJnoeQ9T0DSG/pPUc/C8nwv6ym6otJPrXkdFCHRedhyYe2LghHOdx6EHqQ==}
-    dev: false
-
-  /@ngneat/elf/2.1.0_typescript@4.7.4:
-    resolution: {integrity: sha512-R5BeYoBQ9DgtjlWAE8eqaYyDI5zgRmND7mbgDdbG1JUisaOopcxLMDKZYI9+HWSHcfKPk+XHgFlKQfAl470lNw==}
+  /@ngrx/store/14.3.0_gxa6eshox3bd5jdbjjgcojykiu:
+    resolution: {integrity: sha512-pGH7wGS8pTtt6w+IY+OvSwNFFeD6YYYGJnDM+1+qKzl3nfHMBhFVUGX9u2eYV9vAKxx7TUJt80crCARjdo3U5g==}
     peerDependencies:
-      typescript: '>= 4.1.2'
+      '@angular/core': ^14.0.0
+      rxjs: ^6.5.3 || ^7.5.0
     dependencies:
-      typescript: 4.7.4
+      '@angular/core': 14.1.1_rxjs@7.4.0+zone.js@0.11.7
+      rxjs: 7.4.0
+      tslib: 2.4.0
     dev: false
 
   /@ngtools/webpack/14.1.1_56xyur5cdganrtsauyuhalxwxi:

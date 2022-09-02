@@ -1,6 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, throwError } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 
@@ -12,6 +13,10 @@ const mockMsgSvc = {
   add: jest.fn(),
 };
 
+const mockMatSnackBar = {
+  open: jest.fn(),
+};
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let authService: AuthService;
@@ -21,7 +26,7 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [LoginComponent],
-      providers: [AuthService],
+      providers: [AuthService, { provide: MatSnackBar, useValue: mockMatSnackBar }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
@@ -62,14 +67,6 @@ describe('LoginComponent', () => {
       component.submit();
       expect(component.email?.markAsDirty).toHaveBeenCalledTimes(1);
       expect(component.password?.markAsDirty).toHaveBeenCalledTimes(1);
-    });
-    it('should call next on loadingSubject with true', () => {
-      component.email?.setValue('test@test.com');
-      component.password?.setValue('123');
-      component.loadingSubject.next = jest.fn();
-      component.submit();
-      expect(component.loadingSubject.next).toHaveBeenCalledTimes(1);
-      expect(component.loadingSubject.next).toHaveBeenCalledWith(true);
     });
     it('should call login of authSvc with form value', () => {
       component.email?.setValue('test@test.com');
