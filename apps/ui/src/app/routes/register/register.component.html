@@ -1,48 +1,27 @@
-<div class="grid justify-content-center">
-  <div class="col-12 md:col-6">
-    <p-card styleClass="p-card-shadow register-card">
-      <ng-template pTemplate="header">
-        <h1>Register</h1>
-      </ng-template>
-      <form [formGroup]="form" (ngSubmit)="submit()">
-        <div class="field">
-          <label for="email" class="d-block"
-            >Email <small class="text-red-500"><i class="fa-solid fa-asterisk"></i></small
-          ></label>
-          <input type="text" id="email" pInputText formControlName="email" [ngStyle]="{ width: '100%' }" />
-          <div>
-            <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['required']" data-cy="email-required"
-              >Email is required</small
-            >
-            <small class="text-red-500" *ngIf="email?.dirty && email?.errors?.['email']" data-cy="email-pattern"
-              >Email must be valid</small
-            >
-          </div>
-        </div>
-        <div class="field">
-          <label for="password" class="d-block"
-            >Password <small class="text-red-500"><i class="fa-solid fa-asterisk"></i></small
-          ></label>
-          <input type="password" id="password" pInputText formControlName="password" [ngStyle]="{ width: '100%' }" />
-          <div>
-            <small
-              class="text-red-500"
-              *ngIf="password?.dirty && password?.errors?.['required']"
-              data-cy="password-required"
-            >
-              Password is required
-            </small>
-          </div>
-        </div>
-        <button
-          pButton
-          data-cy="register-submit"
-          type="submit"
-          [loading]="!!(loading$ | async)"
-          label="Create an Account"
-          icon="fa-solid fa-user-plus"
-        ></button>
-      </form>
-    </p-card>
-  </div>
-</div>
+<mat-card class="register-card">
+  <mat-card-title><h1>Register</h1></mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error *ngIf="email?.hasError('required') && !email?.hasError('email')" data-cy="email-required">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="email?.hasError('email')" data-cy="email-pattern"> Email must be valid </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" />
+        <mat-error *ngIf="password?.hasError('required')" data-cy="password-required"> Password is required </mat-error>
+      </mat-form-field>
+      <div class="btn-group">
+        <button mat-raised-button type="submit" data-cy="register-submit" color="primary">
+          <mat-icon *ngIf="(loading$ | async) === false">person_add</mat-icon>
+          <mat-spinner [diameter]="24" *ngIf="loading$ | async" class="spinner-icon"></mat-spinner>
+          Register
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

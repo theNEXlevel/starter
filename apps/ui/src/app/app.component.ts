@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {} from 'primeng/api';
 
 @Component({
   selector: 'starter-root',

@@ -1,8 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { OverlayPanel } from 'primeng/overlaypanel';
 import { of, throwError } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 
@@ -23,7 +21,7 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [LoginComponent],
-      providers: [AuthService, { provide: MessageService, useValue: mockMsgSvc }],
+      providers: [AuthService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
@@ -103,18 +101,6 @@ describe('LoginComponent', () => {
       authService.login(component.form.value).subscribe(() => {
         expect(component.loadingSubject.next).toHaveBeenCalledTimes(1);
         expect(component.loadingSubject.next).toHaveBeenCalledWith(false);
-      });
-    });
-    it('should call hide on overlay on success', () => {
-      authService.login = jest.fn().mockReturnValue(of({}));
-      component.overlay = {
-        hide: jest.fn(),
-      } as unknown as OverlayPanel;
-      component.email?.setValue('test@test.com');
-      component.password?.setValue('123');
-      component.submit();
-      authService.login(component.form.value).subscribe(() => {
-        expect(component.overlay.hide).toHaveBeenCalledTimes(1);
       });
     });
     it('should call next on loadingSubject with false value on error', () => {

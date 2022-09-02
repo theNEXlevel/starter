@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs';
 import { ErrorRepository } from '../../state/error.respository';
 
@@ -13,15 +13,22 @@ export class MainComponent implements OnInit {
   error$ = this.errorRepo.error$.pipe(
     tap((err) => {
       if (err.error.message) {
-        this.messageSvc.add({
-          severity: 'error',
-          summary: `${err.error.error}`,
-          detail: `${Array.isArray(err.error.message) ? err.error.message.join(', ') : err.error.message}`,
-        });
+        this.snackBar.open(
+          `${err.error.error ?? 'Error'} - ${
+            Array.isArray(err.error.message) ? err.error.message.join(', ') : err.error.message
+          }`,
+          undefined,
+          {
+            horizontalPosition: 'end',
+            verticalPosition: 'top',
+            panelClass: 'notif-error',
+            duration: 3000,
+          }
+        );
       }
     })
   );
-  constructor(private messageSvc: MessageService, private errorRepo: ErrorRepository) {}
+  constructor(private errorRepo: ErrorRepository, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.error$.subscribe();

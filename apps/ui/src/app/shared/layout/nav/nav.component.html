@@ -1,0 +1,59 @@
+<ng-container *ngIf="user$ | async as user">
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+      #drawer
+      class="sidenav"
+      fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+      <mat-toolbar>Menu</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item routerLink="">Home</a>
+        <a mat-list-item routerLink="dashboard">Dashboard</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <h1>Starter</h1>
+        <button
+          mat-raised-button
+          *ngIf="!user.user"
+          class="login-btn"
+          color="accent"
+          data-cy="login"
+          cdkOverlayOrigin
+          #trigger="cdkOverlayOrigin"
+          (click)="toggle(trigger)">
+          <mat-icon>login</mat-icon>
+          Login / Register
+        </button>
+        <button
+          mat-raised-button
+          *ngIf="user.user"
+          class="login-btn"
+          color="accent"
+          data-cy="login"
+          cdkOverlayOrigin
+          #trigger="cdkOverlayOrigin"
+          (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </mat-toolbar>
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="triggerOrigin" [cdkConnectedOverlayOpen]="open">
+    <starter-login (closeOverlay)="open = false"></starter-login>
+  </ng-template>
+</ng-container>

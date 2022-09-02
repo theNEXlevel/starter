@@ -1,11 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MessageService } from 'primeng/api';
 import { ErrorRepository } from '../../state/error.respository';
 
 import { MainComponent } from './main.component';
 
-const mockMsgSvc: Partial<MessageService> = {
+const mockMsgSvc = {
   add: jest.fn(),
 };
 
@@ -17,7 +16,7 @@ describe('MainComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MainComponent],
-      providers: [{ provide: MessageService, useValue: mockMsgSvc }, ErrorRepository],
+      providers: [ErrorRepository],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });

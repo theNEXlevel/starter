@@ -1,5 +1,7 @@
 :host {
   display: block;
+  background-color: var(--primary-500);
+  color: white;
 }
 
 .footer {
@@ -7,8 +9,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  padding: 0.5rem;
-  color: var(--gray-300);
-  background-color: var(--gray-800);
+  gap: 1rem;
 }
