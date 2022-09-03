@@ -66,6 +66,16 @@ describe('MainComponent', () => {
     expect(mockMatSnackBar.open).toHaveBeenCalledTimes(1);
   });
 
+  it('should call open on matSnackBar when there is an error', () => {
+    const error = {
+      message: '456',
+    };
+    const mySelector = store.overrideSelector(selectMsg, error);
+    mySelector.setResult(error);
+    store.refreshState();
+    expect(mockMatSnackBar.open).toHaveBeenCalledTimes(1);
+  });
+
   it('should call add on messageService when there is an error array', () => {
     const error = {
       error: '123',
