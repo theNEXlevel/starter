@@ -10,7 +10,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavComponent } from './nav.component';
 import { of } from 'rxjs';
 import { provideMockStore } from '@ngrx/store/testing';
-import { selectUser } from '../../../state';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -42,12 +41,6 @@ describe('NavComponent', () => {
       providers: [
         provideMockStore({
           initialState: initialState,
-          selectors: [
-            {
-              selector: selectUser,
-              value: {},
-            },
-          ],
         }),
         { provide: MatSnackBar, useValue: mockMatSnackBar },
         { provider: BreakpointObserver, useValue: breakpointObserverMock },
@@ -63,5 +56,25 @@ describe('NavComponent', () => {
 
   it('should compile', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('toggle', () => {
+    it('should set triggerOrigin to param', () => {
+      const data = '123';
+      component.toggle(data);
+      expect(component.triggerOrigin).toEqual(data);
+    });
+    it('should toggle the open state', () => {
+      component.open = true;
+      component.toggle('123');
+      expect(component.open).toBeFalsy();
+    });
+  });
+
+  describe('logout', () => {
+    it('should call open on snackBar', () => {
+      component.logout();
+      expect(mockMatSnackBar.open).toHaveBeenCalledTimes(1);
+    });
   });
 });
