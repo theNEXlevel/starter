@@ -9,13 +9,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NavComponent } from './nav.component';
 import { of } from 'rxjs';
-import { provideMockStore } from '@ngrx/store/testing';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 
-const mockMatSnackBar = {
-  open: jest.fn(),
-};
 const breakpointObserverMock = {
   observe: jest.fn().mockReturnValue(of()),
 };
@@ -23,6 +19,7 @@ const initialState = { user: {} };
 
 describe('NavComponent', () => {
   let component: NavComponent;
+  let store: MockStore;
   let fixture: ComponentFixture<NavComponent>;
 
   beforeEach(waitForAsync(() => {
@@ -42,7 +39,6 @@ describe('NavComponent', () => {
         provideMockStore({
           initialState: initialState,
         }),
-        { provide: MatSnackBar, useValue: mockMatSnackBar },
         { provider: BreakpointObserver, useValue: breakpointObserverMock },
       ],
     }).compileComponents();
@@ -50,6 +46,7 @@ describe('NavComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NavComponent);
+    store = TestBed.inject(MockStore);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -60,21 +57,31 @@ describe('NavComponent', () => {
 
   describe('toggle', () => {
     it('should set triggerOrigin to param', () => {
-      const data = '123';
+      const data: CdkOverlayOrigin = {
+        elementRef: {
+          nativeElement: {},
+        },
+      };
       component.toggle(data);
       expect(component.triggerOrigin).toEqual(data);
     });
     it('should toggle the open state', () => {
+      const data: CdkOverlayOrigin = {
+        elementRef: {
+          nativeElement: {},
+        },
+      };
       component.open = true;
-      component.toggle('123');
+      component.toggle(data);
       expect(component.open).toBeFalsy();
     });
   });
 
   describe('logout', () => {
     it('should call open on snackBar', () => {
+      const spy = jest.spyOn(store, 'dispatch');
       component.logout();
-      expect(mockMatSnackBar.open).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledTimes(2);
     });
   });
 });

@@ -15,12 +15,12 @@ export class MainComponent implements OnInit {
     filter((err) => !!err.message),
     tap((err) => {
       this.snackBar.open(
-        `${err.error ?? 'Error'} - ${Array.isArray(err.message) ? err.message.join(', ') : err.message}`,
+        `${err.error ?? 'Success'} - ${Array.isArray(err.message) ? err.message.join(', ') : err.message}`,
         undefined,
         {
           horizontalPosition: 'end',
           verticalPosition: 'top',
-          panelClass: 'notif-error',
+          panelClass: err.error ? 'notif-error' : 'notif-success',
           duration: 3000,
         }
       );

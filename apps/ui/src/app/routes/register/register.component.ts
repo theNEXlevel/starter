@@ -2,9 +2,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Login, LoginForm } from '@starter/api-interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
+import { showMsg } from '../../state';
 
 @Component({
   selector: 'starter-register',
@@ -24,7 +26,7 @@ export class RegisterComponent implements OnInit {
     return this.form.get('password');
   }
 
-  constructor(private authSvc: AuthService, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private authSvc: AuthService, private router: Router, private store: Store) {}
 
   ngOnInit(): void {
     this.loadingSubject = new BehaviorSubject<boolean>(false);
@@ -44,12 +46,7 @@ export class RegisterComponent implements OnInit {
     this.loadingSubject.next(true);
     this.authSvc.register(this.form.value as Login).subscribe({
       next: () => {
-        this.snackBar.open('Registered - You have been logged in!', undefined, {
-          horizontalPosition: 'end',
-          verticalPosition: 'top',
-          panelClass: 'notif-success',
-          duration: 3000,
-        });
+        this.store.dispatch(showMsg({ msg: { message: 'You have been logged in!' } }));
         this.loadingSubject.next(false);
         this.router.navigate(['dashboard']);
       },

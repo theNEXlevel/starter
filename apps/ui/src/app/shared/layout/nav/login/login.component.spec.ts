@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { provideMockStore } from '@ngrx/store/testing';
 import { of, throwError } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 
@@ -13,8 +13,8 @@ const mockMsgSvc = {
   add: jest.fn(),
 };
 
-const mockMatSnackBar = {
-  open: jest.fn(),
+const initialState = {
+  user: {},
 };
 
 describe('LoginComponent', () => {
@@ -26,7 +26,12 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [LoginComponent],
-      providers: [AuthService, { provide: MatSnackBar, useValue: mockMatSnackBar }],
+      providers: [
+        AuthService,
+        provideMockStore({
+          initialState: initialState,
+        }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);

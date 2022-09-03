@@ -11,18 +11,18 @@ describe('Register', () => {
     });
 
     it('should show email pattern error when the input is not an email', () => {
-      cy.get('#email').type('test');
+      cy.get('[data-cy=register-email]').type('test');
+      cy.get('[data-cy=register-submit]').click();
       cy.get('[data-cy=email-pattern]').contains('Email must be valid');
     });
   });
 
   describe('Success', () => {
     it('should register and login the user and navigate to dashboard', () => {
-      cy.get('#email').type('test@test.com');
-      cy.get('#password').type('123');
+      cy.get('[data-cy=register-email]').type('test@test.com');
+      cy.get('[data-cy=register-password]').type('123');
       cy.get('[data-cy=register-submit]').click();
-      cy.get('.p-toast-summary').contains('Registered');
-      cy.get('.p-toast-detail').contains('You have been logged in!');
+      cy.get('.mat-simple-snack-bar-content').contains('You have been logged in!');
     });
   });
 });
@@ -40,24 +40,23 @@ describe('Login', () => {
     });
 
     it('should show email pattern error when the input is not an email', () => {
-      cy.get('#email').type('test');
+      cy.get('[data-cy=login-email]').type('test');
+      cy.get('[data-cy=login-submit]').click();
       cy.get('[data-cy=email-pattern]').contains('Email must be valid');
     });
 
     it('should show error tost when user credentials are incorrect', () => {
-      cy.get('#email').type('test2@test.com');
-      cy.get('#password').type('123');
+      cy.get('[data-cy=login-email]').type('test2@test.com');
+      cy.get('[data-cy=login-password]').type('123');
       cy.get('[data-cy=login-submit]').click();
-      cy.get('.p-toast-summary').contains('Forbidden');
-      cy.get('.p-toast-detail').contains('Credentials Incorrect');
+      cy.get('.mat-simple-snack-bar-content').contains('Forbidden - Credentials Incorrect');
     });
 
     it('should login the user', () => {
-      cy.get('#email').type('test@test.com');
-      cy.get('#password').type('123');
+      cy.get('[data-cy=login-email]').type('test@test.com');
+      cy.get('[data-cy=login-password]').type('123');
       cy.get('[data-cy=login-submit]').click();
-      cy.get('.p-toast-summary').contains('Logged in');
-      cy.get('.p-toast-detail').contains('You have been logged in!');
+      cy.get('.mat-simple-snack-bar-content').contains('You have been logged in!');
     });
   });
 });

@@ -1,13 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
+import { ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { userReducer, msgReducer } from './state';
+import { userReducer, msgReducer, AppState } from './state';
+
+const reducers: ActionReducerMap<AppState> = { user: userReducer, msg: msgReducer };
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({
+    keys: ['user'],
+    rehydrate: true,
+  })(reducer);
+}
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,10 +29,7 @@ import { userReducer, msgReducer } from './state';
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    StoreModule.forRoot({
-      user: userReducer,
-      msg: msgReducer,
-    }),
+    StoreModule.forRoot(reducers, { metaReducers }),
   ],
   bootstrap: [AppComponent],
 })

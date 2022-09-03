@@ -8,5 +8,5 @@ const initialState: Partial<UserEntity> = {};
 export const userReducer = createReducer(
   initialState,
   on(loginUser, (state, payload) => payload.user),
-  on(logoutUser, (state) => state)
+  on(logoutUser, () => initialState)
 );

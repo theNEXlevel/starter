@@ -3,14 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import { of, throwError } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 
 import { RegisterComponent } from './register.component';
-
-const mockMatSnackBar = {
-  open: jest.fn(),
-};
 
 jest.mock('../../shared/services/auth.service');
 
@@ -20,6 +17,10 @@ const routerMock = {
 
 const mockMsgSvc = {
   add: jest.fn(),
+};
+
+const initialState = {
+  user: {},
 };
 
 describe('RegisterComponent', () => {
@@ -33,7 +34,9 @@ describe('RegisterComponent', () => {
       declarations: [RegisterComponent],
       providers: [
         AuthService,
-        { provide: MatSnackBar, useValue: mockMatSnackBar },
+        provideMockStore({
+          initialState: initialState,
+        }),
         { provide: Router, useValue: routerMock },
       ],
     }).compileComponents();

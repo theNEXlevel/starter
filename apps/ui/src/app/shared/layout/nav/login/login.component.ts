@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
 import { Login, LoginForm } from '@starter/api-interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
+import { showMsg } from '../../../../state';
 
 @Component({
   selector: 'starter-login',
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   @Output() closeOverlay = new EventEmitter();
 
-  constructor(private authSvc: AuthService, private snackBar: MatSnackBar) {}
+  constructor(private authSvc: AuthService, private store: Store) {}
 
   ngOnInit(): void {
     this.loadingSubject = new BehaviorSubject<boolean>(false);
@@ -47,12 +48,7 @@ export class LoginComponent implements OnInit {
       next: () => {
         this.closeOverlay.emit();
         this.loadingSubject.next(false);
-        this.snackBar.open('You have been logged in!', undefined, {
-          horizontalPosition: 'end',
-          verticalPosition: 'top',
-          panelClass: 'notif-success',
-          duration: 3000,
-        });
+        this.store.dispatch(showMsg({ msg: { message: 'You have been logged in!' } }));
       },
       error: () => {
         this.loadingSubject.next(false);
