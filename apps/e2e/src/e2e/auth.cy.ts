@@ -32,6 +32,7 @@ describe('Login', () => {
     cy.visit('/');
     cy.get('[data-cy=login]').click();
   });
+  
   describe('Errors', () => {
     it('should show required errors on submit with no data', () => {
       cy.get('[data-cy=login-submit]').click();
@@ -51,7 +52,9 @@ describe('Login', () => {
       cy.get('[data-cy=login-submit]').click();
       cy.get('.mat-simple-snack-bar-content').contains('Forbidden - Credentials Incorrect');
     });
+  });
 
+  describe('Success', () => {
     it('should login the user', () => {
       cy.get('[data-cy=login-email]').type('test@test.com');
       cy.get('[data-cy=login-password]').type('123');
