@@ -1,12 +1,31 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { UserEntity } from '@starter/api-interfaces';
-import { loginUser, logoutUser } from './user.actions';
+import { ErrorUI, UserUI } from '@starter/api-interfaces';
+import { loginError, loginSuccess, logoutUser, registerError, registerSuccess } from './user.actions';
 
-const initialState: Partial<UserEntity> = {};
+export interface UserState {
+  user: Partial<UserUI>;
+  msg: Partial<ErrorUI>;
+}
+
+const initialState: UserState = {
+  user: {},
+  msg: {},
+};
 
 export const userReducer = createReducer(
   initialState,
-  on(loginUser, (state, payload) => payload.user),
+  on(loginSuccess, (state, payload) => {
+    return { ...state, user: payload.user, msg: {} };
+  }),
+  on(loginError, (state, payload) => {
+    return { ...state, msg: payload.error };
+  }),
+  on(registerSuccess, (state, payload) => {
+    return { ...state, user: payload.user, msg: {} };
+  }),
+  on(registerError, (state, payload) => {
+    return { ...state, msg: payload.error };
+  }),
   on(logoutUser, () => initialState)
 );

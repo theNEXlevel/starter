@@ -4,18 +4,24 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { AppRoutingModule } from './app-routing.module';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { userReducer, msgReducer, AppState } from './state';
+import { userReducer, msgReducer, AppState, UserEffects } from './state';
 
 const reducers: ActionReducerMap<AppState> = { user: userReducer, msg: msgReducer };
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['user'],
+    keys: [
+      {
+        user: ['user'],
+      },
+    ],
+    storageKeySerializer: (key: string) => `starter-${key}`,
     rehydrate: true,
   })(reducer);
 }
@@ -30,6 +36,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     SharedModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([UserEffects]),
   ],
   bootstrap: [AppComponent],
 })

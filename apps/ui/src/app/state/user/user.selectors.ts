@@ -1,4 +1,11 @@
-import { createFeatureSelector } from '@ngrx/store';
-import { UserEntity } from '@starter/api-interfaces';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { UserState } from './user.reducer';
 
-export const selectUser = createFeatureSelector<Partial<UserEntity>>('user');
+export const selectUserState = createFeatureSelector<UserState>('user');
+
+export const selectUser = createSelector(selectUserState, (state) => {
+  return state.user;
+});
+export const selectUserMsg = createSelector(selectUserState, (state) => {
+  return state.msg;
+});

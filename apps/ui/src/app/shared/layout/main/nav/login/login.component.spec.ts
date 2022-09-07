@@ -1,36 +1,32 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
-import { RegisterComponent } from './register.component';
+import { LoginComponent } from './login.component';
 
-const routerMock = {
-  navigate: jest.fn(),
-};
+jest.mock('../../../services/auth.service');
 
 const initialState = {
   user: {},
 };
 
-describe('RegisterComponent', () => {
-  let component: RegisterComponent;
+describe('LoginComponent', () => {
+  let component: LoginComponent;
   let store: MockStore;
-  let fixture: ComponentFixture<RegisterComponent>;
+  let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      declarations: [RegisterComponent],
+      declarations: [LoginComponent],
       providers: [
         provideMockStore({
           initialState: initialState,
         }),
-        { provide: Router, useValue: routerMock },
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RegisterComponent);
+    fixture = TestBed.createComponent(LoginComponent);
     store = TestBed.inject(MockStore);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -39,7 +35,6 @@ describe('RegisterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
   it('should set loadingSubject to a behaviorSubject and set it to false', () => {
     expect(component.loadingSubject.value).toEqual(false);
   });
@@ -68,7 +63,7 @@ describe('RegisterComponent', () => {
       component.email?.setValue('test@test.com');
       component.password?.setValue('123');
       const data = {
-        type: '[User] Register Request',
+        type: '[User] Login Request',
         user: component.form.value,
       };
       component.submit();

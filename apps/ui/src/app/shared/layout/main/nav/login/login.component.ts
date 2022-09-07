@@ -1,19 +1,18 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LoginUI, LoginForm } from '@starter/api-interfaces';
 import { BehaviorSubject, combineLatest, tap } from 'rxjs';
-import { selectUser, selectUserMsg, showMsg } from '../../state';
-import * as UserActions from '../../state/user';
+import { selectUser, selectUserMsg, showMsg } from '../../../../../state';
+import * as UserActions from '../../../../../state/user';
 
 @Component({
-  selector: 'starter-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'starter-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent {
+export class LoginComponent {
   loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
   form = new FormGroup<LoginForm>({
@@ -23,9 +22,9 @@ export class RegisterComponent {
   user$ = this.store.select(selectUser).pipe(
     tap((user) => {
       if (user.id) {
+        this.closeOverlay.emit();
         this.loadingSubject.next(false);
         this.store.dispatch(showMsg({ msg: { message: 'You have been logged in!' } }));
-        this.router.navigate(['dashboard']);
       }
     })
   );
@@ -43,11 +42,14 @@ export class RegisterComponent {
   get email() {
     return this.form.get('email');
   }
+
   get password() {
     return this.form.get('password');
   }
 
-  constructor(private router: Router, private store: Store) {}
+  @Output() closeOverlay = new EventEmitter();
+
+  constructor(private store: Store) {}
 
   submit(): void {
     if (this.form.invalid) {
@@ -55,6 +57,6 @@ export class RegisterComponent {
     }
     this.loadingSubject.next(true);
     const data = { user: this.form.value as LoginUI };
-    this.store.dispatch(UserActions.registerRequest(data));
+    this.store.dispatch(UserActions.loginRequest(data));
   }
 }

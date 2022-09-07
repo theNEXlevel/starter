@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
@@ -12,11 +13,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { FooterComponent } from './layout/footer/footer.component';
+import { FooterComponent } from './layout/main/footer/footer.component';
 import { MainComponent } from './layout/main/main.component';
-import { LoginComponent } from './layout/nav/login/login.component';
-import { NavComponent } from './layout/nav/nav.component';
-import { RouterModule } from '@angular/router';
+import { NavComponent } from './layout/main/nav/nav.component';
+import { LoginComponent } from './layout/main/nav/login/login.component';
 
 const sharedModules = [
   ReactiveFormsModule,

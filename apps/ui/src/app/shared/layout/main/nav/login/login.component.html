@@ -1,0 +1,26 @@
+<ng-container *ngIf="vm$ | async">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" data-cy="login-email" />
+      <mat-error *ngIf="email?.hasError('required') && !email?.hasError('email')" data-cy="email-required">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="email?.hasError('email')" data-cy="email-pattern"> Email must be valid </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" data-cy="login-password" />
+      <mat-error *ngIf="password?.hasError('required')" data-cy="password-required"> Password is required </mat-error>
+    </mat-form-field>
+    <div class="btn-group">
+      <button mat-raised-button type="submit" data-cy="login-submit" color="primary" [disabled]="loading$ | async">
+        <mat-icon *ngIf="(loading$ | async) === false">login</mat-icon>
+        <mat-spinner [diameter]="24" *ngIf="loading$ | async" class="spinner-icon"></mat-spinner> Login
+      </button>
+      <a mat-raised-button routerLink="register" type="button" (click)="this.closeOverlay.emit()" class="create-btn"
+        ><mat-icon>person_add</mat-icon> Create an Account</a
+      >
+    </div>
+  </form>
+</ng-container>

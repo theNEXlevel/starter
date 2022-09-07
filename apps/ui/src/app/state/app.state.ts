@@ -1,6 +1,7 @@
-import { ErrorEntity, UserEntity } from '@starter/api-interfaces';
+import { ErrorUI } from '@starter/api-interfaces';
+import { UserState } from './user';
 
 export interface AppState {
-  user: Partial<UserEntity>;
-  msg: Partial<ErrorEntity>;
+  user: UserState;
+  msg: Partial<ErrorUI>;
 }

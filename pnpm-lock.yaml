@@ -27,6 +27,7 @@ specifiers:
   '@nestjs/schematics': ^9.0.0
   '@nestjs/swagger': ^6.0.5
   '@nestjs/testing': ^9.0.0
+  '@ngrx/effects': ^14.3.0
   '@ngrx/store': ^14.3.0
   '@nrwl/angular': 14.6.4
   '@nrwl/cli': 14.6.4
@@ -90,6 +91,7 @@ dependencies:
   '@nestjs/passport': 9.0.0_lzwobzvlbs6mk2ist2cogkss2e
   '@nestjs/platform-express': 9.0.8_cw6o3dkuyuli4a5gq7b223evly
   '@nestjs/swagger': 6.0.5_t5c7ncqnk2fwu54zrommbwzp4i
+  '@ngrx/effects': 14.3.0_fyzptb22ofudlggwfhtzylwqym
   '@ngrx/store': 14.3.0_ulhd65egriw6odwvy6kqq5spge
   '@nrwl/angular': 14.6.4_ddgzhmqtkgwzf7b7kqyxlhj6k4
   argon2: 0.28.7
@@ -2770,6 +2772,20 @@ packages:
       '@nestjs/platform-express': 9.0.8_cw6o3dkuyuli4a5gq7b223evly
       tslib: 2.4.0
     dev: true
+
+  /@ngrx/effects/14.3.0_fyzptb22ofudlggwfhtzylwqym:
+    resolution:
+      { integrity: sha512-oMe4yYRiqgE3Q6h77KC6JoqdAGYIaSK1DSPUtsnvva201pPbj//TB7OgIEySQDHCMTeABPde0VqlkTSuFKo6yA== }
+    peerDependencies:
+      '@angular/core': ^14.0.0
+      '@ngrx/store': 14.3.0
+      rxjs: ^6.5.3 || ^7.5.0
+    dependencies:
+      '@angular/core': 14.2.0_rxjs@7.5.6+zone.js@0.11.7
+      '@ngrx/store': 14.3.0_ulhd65egriw6odwvy6kqq5spge
+      rxjs: 7.5.6
+      tslib: 2.4.0
+    dev: false
 
   /@ngrx/store/14.3.0_ulhd65egriw6odwvy6kqq5spge:
     resolution:

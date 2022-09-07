@@ -3,8 +3,7 @@
 }
 
 .main {
-  min-height: calc(100vh - 10rem);
-  padding: 1rem;
+  min-height: calc(100vh - 8rem);
 
   @media screen and (max-width: 599px) {
     min-height: calc(100vh - 9.5rem);

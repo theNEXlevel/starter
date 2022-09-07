@@ -1,4 +1,4 @@
 import { createFeatureSelector } from '@ngrx/store';
-import { ErrorEntity } from '@starter/api-interfaces';
+import { ErrorUI } from '@starter/api-interfaces';
 
-export const selectMsg = createFeatureSelector<Partial<ErrorEntity>>('msg');
+export const selectMsg = createFeatureSelector<Partial<ErrorUI>>('msg');

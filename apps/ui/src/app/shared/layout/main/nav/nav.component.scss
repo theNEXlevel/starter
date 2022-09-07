@@ -1,5 +1,5 @@
 .sidenav-container {
-  height: 100vh;
+  min-height: calc(100vh - 10rem);
 }
 
 .sidenav {
@@ -23,4 +23,8 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.icon-right {
+  margin-right: 0.5rem;
 }
