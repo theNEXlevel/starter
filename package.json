@@ -40,6 +40,7 @@
     "@nestjs/swagger": "^6.0.5",
     "@ngrx/effects": "^14.3.0",
     "@ngrx/store": "^14.3.0",
+    "@ngrx/store-devtools": "^14.3.0",
     "@nrwl/angular": "14.6.4",
     "argon2": "^0.28.7",
     "class-transformer": "^0.5.1",

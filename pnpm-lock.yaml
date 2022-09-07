@@ -29,6 +29,7 @@ specifiers:
   '@nestjs/testing': ^9.0.0
   '@ngrx/effects': ^14.3.0
   '@ngrx/store': ^14.3.0
+  '@ngrx/store-devtools': ^14.3.0
   '@nrwl/angular': 14.6.4
   '@nrwl/cli': 14.6.4
   '@nrwl/cypress': 14.6.4
@@ -93,6 +94,7 @@ dependencies:
   '@nestjs/swagger': 6.0.5_t5c7ncqnk2fwu54zrommbwzp4i
   '@ngrx/effects': 14.3.0_fyzptb22ofudlggwfhtzylwqym
   '@ngrx/store': 14.3.0_ulhd65egriw6odwvy6kqq5spge
+  '@ngrx/store-devtools': 14.3.0_gjalkostsdvxgdhpxvmjame3qi
   '@nrwl/angular': 14.6.4_ddgzhmqtkgwzf7b7kqyxlhj6k4
   argon2: 0.28.7
   class-transformer: 0.5.1
@@ -2782,6 +2784,18 @@ packages:
       rxjs: ^6.5.3 || ^7.5.0
     dependencies:
       '@angular/core': 14.2.0_rxjs@7.5.6+zone.js@0.11.7
+      '@ngrx/store': 14.3.0_ulhd65egriw6odwvy6kqq5spge
+      rxjs: 7.5.6
+      tslib: 2.4.0
+    dev: false
+
+  /@ngrx/store-devtools/14.3.0_gjalkostsdvxgdhpxvmjame3qi:
+    resolution:
+      { integrity: sha512-LjQxluTB07DrLhcS01H/Jb7uMFNJ0djJoAyyqtNC87VuF7ZMX5wEgzyBXtJvg3P5pz2P13NlxMohE+H4UJHw/Q== }
+    peerDependencies:
+      '@ngrx/store': 14.3.0
+      rxjs: ^6.5.3 || ^7.5.0
+    dependencies:
       '@ngrx/store': 14.3.0_ulhd65egriw6odwvy6kqq5spge
       rxjs: 7.5.6
       tslib: 2.4.0
