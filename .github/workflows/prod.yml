@@ -13,11 +13,11 @@ jobs:
       - name: 'Create env file'
         run: |
           touch .env
-          echo DATABASE_URL='${{ secrets.DATABASE_URL }}'' >> .env
-          echo JWT_SECRET='${{ secrets.JWT_SECRET }}'' >> .env
+          echo DATABASE_URL='${{ secrets.DATABASE_URL }}' >> .env
+          echo JWT_SECRET='${{ secrets.JWT_SECRET }}' >> .env
           cat .env
       - name: Test printing your secret (Remove this step in production)
-        run: echo JWT_SECRET='${{ secrets.JWT_SECRET }}''
+        run: echo JWT_SECRET='${{ secrets.JWT_SECRET }}'
   build:
     needs: create-envfile
     runs-on: ubuntu-latest
