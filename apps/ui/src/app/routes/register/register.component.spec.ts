@@ -63,7 +63,7 @@ describe('RegisterComponent', () => {
   });
 
   describe('mock user in state', () => {
-    let storeSpy: any;
+    let storeSpy = {};
     beforeEach(() => {
       store.overrideSelector(selectUser, { id: '123' });
       storeSpy = jest.spyOn(store, 'dispatch');
@@ -83,7 +83,7 @@ describe('RegisterComponent', () => {
   });
 
   describe('mock userError in state', () => {
-    let storeSpy: any;
+    let storeSpy = {};
     beforeEach(() => {
       store.overrideSelector(selectUserMsg, { error: '123' });
       storeSpy = jest.spyOn(store, 'dispatch');
