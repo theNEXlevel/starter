@@ -7,6 +7,14 @@ on:
     branches: [main]
 
 jobs:
+  create-envfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
   build:
     runs-on: ubuntu-latest
     steps:
