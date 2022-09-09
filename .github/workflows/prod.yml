@@ -24,7 +24,13 @@ jobs:
       - run: npx pnpm build:all
       - uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
-          path: |
-            dist/apps/api
-            dist/apps/ui
+          name: api
+          path: dist/apps/api
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ui
+          path: dist/apps/ui
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/apps # The folder the action should deploy.
