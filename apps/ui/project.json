@@ -19,6 +19,7 @@
       },
       "configurations": {
         "production": {
+          "baseHref": "/starter/",
           "budgets": [
             {
               "type": "initial",
