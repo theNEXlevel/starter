@@ -30,7 +30,19 @@ jobs:
         with:
           name: ui
           path: dist/apps/ui
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Download ui
+        uses: actions/download-artifact@v1
         with:
-          folder: dist/apps # The folder the action should deploy.
+          name: ui
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: deploy/ui
