@@ -13,7 +13,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 
 const breakpointObserverMock = {
-  observe: jest.fn().mockReturnValue(of()),
+  observe: jest.fn().mockReturnValue(of({ matches: true })),
 };
 const initialState = { user: {} };
 
@@ -49,6 +49,7 @@ describe('NavComponent', () => {
     store = TestBed.inject(MockStore);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.isHandset$.subscribe();
   });
 
   it('should compile', () => {

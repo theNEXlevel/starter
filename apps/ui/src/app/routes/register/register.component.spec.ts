@@ -2,6 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { selectUser, selectUserMsg } from '../../state';
 
 import { RegisterComponent } from './register.component';
 
@@ -25,6 +26,12 @@ describe('RegisterComponent', () => {
       providers: [
         provideMockStore({
           initialState: initialState,
+          selectors: [
+            {
+              selector: selectUser,
+              value: {},
+            },
+          ],
         }),
         { provide: Router, useValue: routerMock },
       ],
@@ -34,6 +41,10 @@ describe('RegisterComponent', () => {
     store = TestBed.inject(MockStore);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    store.resetSelectors();
   });
 
   it('should create', () => {
@@ -49,6 +60,42 @@ describe('RegisterComponent', () => {
   it('should set form to a formGroup with 2 input fields defaulted to empty strings', () => {
     expect(component.form.get('email')?.value).toEqual('');
     expect(component.form.get('password')?.value).toEqual('');
+  });
+
+  describe('mock user in state', () => {
+    let storeSpy: any;
+    beforeEach(() => {
+      store.overrideSelector(selectUser, { id: '123' });
+      storeSpy = jest.spyOn(store, 'dispatch');
+      store.refreshState();
+      component.user$.subscribe();
+    });
+    it('should set loading subject to false', () => {
+      expect(component.loadingSubject.value).toEqual(false);
+    });
+    it('should call dispatch on store', () => {
+      expect(storeSpy).toHaveBeenCalledTimes(1);
+    });
+    it('should call navigate on router with dashboard', () => {
+      expect(routerMock.navigate).toHaveBeenCalledTimes(1);
+      expect(routerMock.navigate).toHaveBeenCalledWith(['dashboard']);
+    });
+  });
+
+  describe('mock userError in state', () => {
+    let storeSpy: any;
+    beforeEach(() => {
+      store.overrideSelector(selectUserMsg, { error: '123' });
+      storeSpy = jest.spyOn(store, 'dispatch');
+      store.refreshState();
+      component.userError$.subscribe();
+    });
+    it('should set loading subject to false', () => {
+      expect(component.loadingSubject.value).toEqual(false);
+    });
+    it('should call dispatch on store', () => {
+      expect(storeSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('submit', () => {

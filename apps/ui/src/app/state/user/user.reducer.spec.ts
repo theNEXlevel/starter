@@ -1,19 +1,25 @@
-import { loginRequest, logoutUser } from './user.actions';
+import { loginError, loginSuccess, logoutUser, registerError, registerSuccess } from './user.actions';
 import { userReducer } from './user.reducer';
 
+const initialState = {
+  user: {},
+  msg: {},
+};
+
 describe('Reducer: User', () => {
-  it('should have initial state of undefined user', () => {
-    const expected = {
-      user: {},
-      msg: {},
-    };
-    expect(userReducer(undefined, loginRequest)).toEqual(expected);
+  it('- loginSuccess', () => {
+    expect(userReducer(undefined, loginSuccess)).toEqual({ user: undefined, msg: {} });
   });
-  it('should have state as an empty object', () => {
-    const expected = {
-      user: {},
-      msg: {},
-    };
-    expect(userReducer(undefined, logoutUser)).toEqual(expected);
+  it('- loginError', () => {
+    expect(userReducer(undefined, loginError)).toEqual({ user: {}, msg: undefined });
+  });
+  it('- registerSuccess', () => {
+    expect(userReducer(undefined, registerSuccess)).toEqual({ user: undefined, msg: {} });
+  });
+  it('- registerError', () => {
+    expect(userReducer(undefined, registerError)).toEqual({ user: {}, msg: undefined });
+  });
+  it('- logoutUser', () => {
+    expect(userReducer(undefined, logoutUser)).toEqual(initialState);
   });
 });

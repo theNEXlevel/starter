@@ -7,22 +7,22 @@ export class UserEntity implements User {
   accessToken?: string;
 
   @ApiProperty()
-  name!: string | null;
+  name: string | null;
 
   @ApiProperty()
-  id!: string;
+  id: string;
 
   @ApiProperty()
-  email!: string;
+  email: string;
 
   @ApiProperty()
-  hash!: string;
+  hash: string;
 
   @ApiProperty()
-  createdAt!: Date;
+  createdAt: Date;
 
   @ApiProperty()
-  updatedAt!: Date;
+  updatedAt: Date;
 }
 
 export class Login {

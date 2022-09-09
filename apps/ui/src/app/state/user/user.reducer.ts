@@ -16,13 +16,13 @@ const initialState: UserState = {
 export const userReducer = createReducer(
   initialState,
   on(loginSuccess, (state, payload) => {
-    return { ...state, user: payload.user, msg: {} };
+    return { ...state, ...{ user: payload.user, msg: {} } };
   }),
   on(loginError, (state, payload) => {
     return { ...state, msg: payload.error };
   }),
   on(registerSuccess, (state, payload) => {
-    return { ...state, user: payload.user, msg: {} };
+    return { ...state, ...{ user: payload.user, msg: {} } };
   }),
   on(registerError, (state, payload) => {
     return { ...state, msg: payload.error };
