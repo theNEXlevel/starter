@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - run: |
+          git fetch --no-tags --prune --depth=5 origin main
       - uses: actions/setup-node@v3
       - name: 'Create env file'
         run: |
