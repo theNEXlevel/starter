@@ -19,6 +19,7 @@ jobs:
           echo DATABASE_URL=$DATABASE_URL >> .env
           echo JWT_SECRET=$JWT_SECRET >> .env
           cat .env
+          ls -l
   build:
     needs: create-envfile
     runs-on: ubuntu-latest
