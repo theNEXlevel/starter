@@ -20,13 +20,13 @@ jobs:
       - run: npx pnpm i
       - name: Run Affected Lint
         shell: bash
-        run: npx nx affected --target=lint
+        run: npx nx affected --target=lint -- --base main
       - name: Run Affected Tests
         shell: bash
-        run: npx nx affected --target=test
+        run: npx nx affected --target=test -- --base main
       - name: Run Affected Build
         shell: bash
-        run: npx nx affected --target=build
+        run: npx nx affected --target=build -- --base main
       - name: Run E2E Tests
         shell: bash
         run: npx pnpm e2e
