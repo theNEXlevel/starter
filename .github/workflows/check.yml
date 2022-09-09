@@ -34,3 +34,10 @@ jobs:
       - name: Run E2E Tests
         shell: bash
         run: npx pnpm e2e
+      - uses: actions/upload-artifact@v3
+        with:
+          name: report
+          path: |
+            coverage/apps/api
+            coverage/apps/ui
+            dist/cypress
