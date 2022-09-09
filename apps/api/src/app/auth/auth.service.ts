@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
-import { Login, UserEntity } from '@starter/api-interfaces';
+import { Login, User, UserEntity } from '@starter/api-interfaces';
 
 @Injectable()
 export class AuthService {
@@ -48,7 +48,7 @@ export class AuthService {
     return this.signToken(user);
   }
 
-  async signToken(user: UserEntity): Promise<UserEntity> {
+  async signToken(user: User): Promise<UserEntity> {
     const payload = {
       sub: user.id,
       email: user.email,

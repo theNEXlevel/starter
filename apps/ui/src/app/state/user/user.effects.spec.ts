@@ -5,7 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 import { UserEffects } from './user.effects';
 import * as UserActions from './user.actions';
-import { ErrorEntity, UserEntity } from '@starter/api-interfaces';
+import { Error, User } from '@starter/api-interfaces';
 
 const initialState = {
   user: {},
@@ -37,7 +37,7 @@ describe('UserEffects', () => {
       actions$ = of(UserActions.loginRequest);
       effects.login$.subscribe((action) => {
         expect(mockAuthService.login).toHaveBeenCalledTimes(1);
-        expect(action).toEqual(UserActions.loginSuccess({ user: action as unknown as UserEntity }));
+        expect(action).toEqual(UserActions.loginSuccess({ user: action as unknown as User }));
       });
     });
 
@@ -50,7 +50,7 @@ describe('UserEffects', () => {
       );
       effects.login$.subscribe((action) => {
         expect(mockAuthService.login).toHaveBeenCalledTimes(1);
-        expect(action).toEqual(UserActions.loginError({ error: action as unknown as ErrorEntity }));
+        expect(action).toEqual(UserActions.loginError({ error: action as unknown as Error }));
       });
     });
   });
@@ -60,7 +60,7 @@ describe('UserEffects', () => {
       actions$ = of(UserActions.registerRequest);
       effects.register$.subscribe((action) => {
         expect(mockAuthService.register).toHaveBeenCalledTimes(1);
-        expect(action).toEqual(UserActions.registerSuccess({ user: action as unknown as UserEntity }));
+        expect(action).toEqual(UserActions.registerSuccess({ user: action as unknown as User }));
       });
     });
 
@@ -73,7 +73,7 @@ describe('UserEffects', () => {
       );
       effects.register$.subscribe((action) => {
         expect(mockAuthService.register).toHaveBeenCalledTimes(1);
-        expect(action).toEqual(UserActions.registerError({ error: action as unknown as ErrorEntity }));
+        expect(action).toEqual(UserActions.registerError({ error: action as unknown as Error }));
       });
     });
   });

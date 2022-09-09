@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { ErrorUI } from '@starter/api-interfaces';
+import { Error } from '@starter/api-interfaces';
 import { showMsg } from './msg.actions';
 
-const initialState: Partial<ErrorUI> = {};
+const initialState: Partial<Error> = {};
 
 export const msgReducer = createReducer(
   initialState,

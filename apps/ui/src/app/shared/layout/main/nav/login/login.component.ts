@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { LoginUI, LoginForm } from '@starter/api-interfaces';
+import { Login, LoginForm } from '@starter/api-interfaces';
 import { BehaviorSubject, combineLatest, tap } from 'rxjs';
 import { selectUser, selectUserMsg, showMsg } from '../../../../../state';
 import * as UserActions from '../../../../../state/user';
@@ -56,7 +56,7 @@ export class LoginComponent {
       return;
     }
     this.loadingSubject.next(true);
-    const data = { user: this.form.value as LoginUI };
+    const data = { user: this.form.value as Login };
     this.store.dispatch(UserActions.loginRequest(data));
   }
 }

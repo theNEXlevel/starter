@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 
 import { AuthService } from './auth.service';
-import { LoginUI } from '@starter/api-interfaces';
+import { Login } from '@starter/api-interfaces';
 import { selectMsg, selectUser } from '../../state';
 
 describe('AuthService', () => {
@@ -32,7 +32,7 @@ describe('AuthService', () => {
 
   describe('login', () => {
     it('should call the correct endpoint with data', () => {
-      const data: LoginUI = {
+      const data: Login = {
         email: 'test@test.com',
         password: '123',
       };
@@ -44,7 +44,7 @@ describe('AuthService', () => {
       req.flush(data);
     });
     it('should set the user and set the user in the store', () => {
-      const data: LoginUI = {
+      const data: Login = {
         email: 'test@test.com',
         password: '123',
       };
@@ -57,7 +57,7 @@ describe('AuthService', () => {
       expect(store.select(selectUser)).toBeDefined();
     });
     it('should error and show error message', () => {
-      const data: LoginUI = {
+      const data: Login = {
         email: 'test@test.com',
         password: '123',
       };
@@ -74,7 +74,7 @@ describe('AuthService', () => {
 
   describe('register', () => {
     it('should call the correct endpoint with data and set the user in the store', () => {
-      const data: LoginUI = {
+      const data: Login = {
         email: 'test@test.com',
         password: '123',
       };
@@ -87,7 +87,7 @@ describe('AuthService', () => {
       expect(store.select(selectUser)).toBeDefined();
     });
     it('should error and show error message', () => {
-      const data: LoginUI = {
+      const data: Login = {
         email: 'test@test.com',
         password: '123',
       };

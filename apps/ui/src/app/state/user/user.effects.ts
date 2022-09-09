@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ErrorUI } from '@starter/api-interfaces';
+import { Error } from '@starter/api-interfaces';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { AuthService } from '../../shared/services/auth.service';
@@ -17,7 +17,7 @@ export class UserEffects {
             return UserActions.loginSuccess({ user });
           }),
           catchError((err) => {
-            const error: ErrorUI = err.error;
+            const error: Error = err.error;
             return of(UserActions.loginError({ error }));
           })
         )
@@ -34,7 +34,7 @@ export class UserEffects {
             return UserActions.registerSuccess({ user });
           }),
           catchError((err) => {
-            const error: ErrorUI = err.error;
+            const error: Error = err.error;
             return of(UserActions.registerError({ error }));
           })
         )
