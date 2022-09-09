@@ -1,0 +1,32 @@
+name: PR Check
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo DATABASE_URL=$DATABASE_URL >> .env
+          echo JWT_SECRET=$JWT_SECRET >> .env
+          cat .env
+      - run: npx pnpm i
+      - name: Run Affected Lint
+        shell: bash
+        run: npx nx affected --target=lint -- --base=remotes/origin/main
+      - name: Run Affected Tests
+        shell: bash
+        run: npx nx affected --target=test -- --base=remotes/origin/main
+      - name: Run Affected Build
+        shell: bash
+        run: npx nx affected --target=build -- --base=remotes/origin/main
+      - name: Run E2E Tests
+        shell: bash
+        run: npx pnpm e2e

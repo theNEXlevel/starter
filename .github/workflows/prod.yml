@@ -1,4 +1,4 @@
-name: Prod Full Check
+name: Build and Archive
 
 env:
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -6,8 +6,6 @@ env:
 
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
 jobs:
@@ -23,4 +21,10 @@ jobs:
           echo JWT_SECRET=$JWT_SECRET >> .env
           cat .env
       - run: npx pnpm i
-      - run: npx pnpm prod
+      - run: npx pnpm build:all
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: |
+            dist/apps/api
+            dist/apps/ui
