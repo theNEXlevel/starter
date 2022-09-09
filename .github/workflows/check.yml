@@ -1,0 +1,43 @@
+name: PR Check
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - run: git fetch --no-tags --prune --depth=5 origin main
+      - uses: actions/setup-node@v3
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo DATABASE_URL=$DATABASE_URL >> .env
+          echo JWT_SECRET=$JWT_SECRET >> .env
+          cat .env
+      - run: npx pnpm i
+      - name: Run Affected Lint
+        shell: bash
+        run: npx nx affected --target=lint --base origin/main
+      - name: Run Affected Tests
+        shell: bash
+        run: npx nx affected --target=test --base origin/main
+      - name: Run Affected Build
+        shell: bash
+        run: npx nx affected --target=build --base origin/main
+      - name: Run E2E Tests
+        shell: bash
+        run: npx pnpm e2e
+      - uses: actions/upload-artifact@v3
+        with:
+          name: report
+          path: |
+            coverage/apps/api
+            coverage/apps/ui
+            dist/cypress
