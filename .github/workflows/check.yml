@@ -13,8 +13,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-      - run: |
-          git fetch --no-tags --prune --depth=5 origin main
+      - run: git fetch --no-tags --prune --depth=5 origin main
       - uses: actions/setup-node@v3
       - name: 'Create env file'
         run: |
@@ -25,13 +24,13 @@ jobs:
       - run: npx pnpm i
       - name: Run Affected Lint
         shell: bash
-        run: npx nx affected --target=lint -- --base main
+        run: npx nx affected --target=lint --base origin/main
       - name: Run Affected Tests
         shell: bash
-        run: npx nx affected --target=test -- --base main
+        run: npx nx affected --target=test --base origin/main
       - name: Run Affected Build
         shell: bash
-        run: npx nx affected --target=build -- --base main
+        run: npx nx affected --target=build --base origin/main
       - name: Run E2E Tests
         shell: bash
         run: npx pnpm e2e
