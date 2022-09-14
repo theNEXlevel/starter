@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Login, LoginForm } from '@starter/api-interfaces';
-import { BehaviorSubject, combineLatest, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, tap } from 'rxjs';
 import { selectUser, selectUserMsg, showMsg } from '../../../../../state';
 import * as UserActions from '../../../../../state/user';
 
@@ -37,8 +37,9 @@ export class LoginComponent {
       }
     })
   );
-
-  vm$ = combineLatest([this.user$, this.userError$]);
+  vm$ = combineLatest([this.user$, this.userError$, this.loading$]).pipe(
+    map(([user, userError, loading]) => ({ user, userError, loading }))
+  );
 
   get email() {
     return this.form.get('email');

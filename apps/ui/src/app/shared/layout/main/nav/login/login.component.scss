@@ -1,12 +1,21 @@
 :host {
   display: block;
-  background-color: white;
   padding: 1rem;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   width: 100%;
   max-width: 400px;
+  background: white;
   border: 1px solid var(--primary-500);
+
+  @media screen and (max-width: 599px) {
+    margin-left: 1rem;
+  }
+}
+
+.dark-mode :host {
+  background: #424242;
+  color: white;
 }
 
 .full-width {

@@ -1,4 +1,5 @@
 import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
+import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,21 +11,30 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavComponent } from './nav.component';
 import { of } from 'rxjs';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
+import { CdkOverlayOrigin, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { selectUser, selectUserDarkMode } from '../../../../state';
 
 const breakpointObserverMock = {
   observe: jest.fn().mockReturnValue(of({ matches: true })),
 };
-const initialState = { user: {} };
+
+const mockOverlay = {
+  addClass: jest.fn(),
+  removeClass: jest.fn(),
+};
+
+const initialState = { user: {}, msg: {}, darkMode: false };
 
 describe('NavComponent', () => {
   let component: NavComponent;
   let store: MockStore;
+  let renderer: Renderer2;
   let fixture: ComponentFixture<NavComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NavComponent],
+      schemas: [NO_ERRORS_SCHEMA],
       imports: [
         NoopAnimationsModule,
         LayoutModule,
@@ -38,7 +48,15 @@ describe('NavComponent', () => {
       providers: [
         provideMockStore({
           initialState: initialState,
+          selectors: [
+            {
+              selector: selectUser,
+              value: initialState.user,
+            },
+          ],
         }),
+        { provider: OverlayContainer, useValue: mockOverlay },
+        Renderer2,
         { provider: BreakpointObserver, useValue: breakpointObserverMock },
       ],
     }).compileComponents();
@@ -47,6 +65,7 @@ describe('NavComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NavComponent);
     store = TestBed.inject(MockStore);
+    renderer = fixture.componentRef.injector.get<Renderer2>(Renderer2);
     component = fixture.componentInstance;
     fixture.detectChanges();
     component.isHandset$.subscribe();
@@ -54,6 +73,13 @@ describe('NavComponent', () => {
 
   it('should compile', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call addClass on renderer if darkMode is enabled', () => {
+    const rendererSpy = jest.spyOn(renderer, 'addClass');
+    store.overrideSelector(selectUserDarkMode, true);
+    store.refreshState();
+    expect(rendererSpy).toHaveBeenCalledTimes(1);
   });
 
   describe('toggle', () => {
@@ -83,6 +109,14 @@ describe('NavComponent', () => {
       const spy = jest.spyOn(store, 'dispatch');
       component.logout();
       expect(spy).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('toggleTheme', () => {
+    it('should call dispatch on store', () => {
+      const spy = jest.spyOn(store, 'dispatch');
+      component.toggleTheme();
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });

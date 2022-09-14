@@ -20,7 +20,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
   return localStorageSync({
     keys: [
       {
-        user: ['user'],
+        user: ['user', 'darkMode'],
       },
     ],
     storageKeySerializer: (key: string) => `starter-${key}`,

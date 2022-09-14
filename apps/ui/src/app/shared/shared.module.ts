@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { FooterComponent } from './layout/main/footer/footer.component';
 import { MainComponent } from './layout/main/main.component';
@@ -32,6 +33,7 @@ const sharedModules = [
   RouterModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
+  MatSlideToggleModule,
 ];
 
 @NgModule({

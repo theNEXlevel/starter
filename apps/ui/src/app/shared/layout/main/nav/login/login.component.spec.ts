@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { selectUser, selectUserMsg } from '../../../../../state';
 
@@ -9,6 +9,8 @@ jest.mock('../../../services/auth.service');
 
 const initialState = {
   user: {},
+  msg: {},
+  darkMode: false,
 };
 
 describe('LoginComponent', () => {
@@ -16,13 +18,23 @@ describe('LoginComponent', () => {
   let store: MockStore;
   let fixture: ComponentFixture<LoginComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       declarations: [LoginComponent],
       providers: [
         provideMockStore({
           initialState: initialState,
+          selectors: [
+            {
+              selector: selectUser,
+              value: initialState.user,
+            },
+            {
+              selector: selectUserMsg,
+              value: initialState.msg,
+            },
+          ],
         }),
       ],
     }).compileComponents();
@@ -31,10 +43,11 @@ describe('LoginComponent', () => {
     store = TestBed.inject(MockStore);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   afterEach(() => {
     store.resetSelectors();
+    jest.clearAllMocks();
   });
 
   it('should create', () => {
@@ -59,7 +72,6 @@ describe('LoginComponent', () => {
     beforeEach(() => {
       store.overrideSelector(selectUser, { id: '123' });
       storeSpy = jest.spyOn(store, 'dispatch');
-      store.refreshState();
       component.user$.subscribe();
     });
     it('should set loading subject to false', () => {
@@ -76,7 +88,6 @@ describe('LoginComponent', () => {
       store.overrideSelector(selectUserMsg, { error: '123' });
       storeSpy = jest.spyOn(store, 'dispatch');
       store.refreshState();
-      component.userError$.subscribe();
     });
     it('should set loading subject to false', () => {
       expect(component.loadingSubject.value).toEqual(false);

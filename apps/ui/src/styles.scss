@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import './styles/theme';
+@import './styles/notifications';
 
 :root {
   --primary-500: #3f51b5;
@@ -9,14 +11,4 @@ html,
 body {
   height: 100%;
   margin: 0;
-}
-
-.notif {
-  &-success {
-    background-color: #28a745;
-  }
-
-  &-error {
-    background-color: #dc3545;
-  }
 }
