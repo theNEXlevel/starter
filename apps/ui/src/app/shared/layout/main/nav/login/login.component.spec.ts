@@ -50,6 +50,9 @@ describe('LoginComponent', () => {
     expect(component.form.get('email')?.value).toEqual('');
     expect(component.form.get('password')?.value).toEqual('');
   });
+  it('should set showRegister to false', () => {
+    expect(component.showRegister).toEqual(false);
+  });
 
   describe('mock user in state', () => {
     let storeSpy = {};
@@ -95,7 +98,7 @@ describe('LoginComponent', () => {
       expect(component.loadingSubject.value).toEqual(true);
     });
 
-    it('should call dispatch on store', () => {
+    it('should call dispatch on store with login request', () => {
       const storeSpy = jest.spyOn(store, 'dispatch');
       component.email?.setValue('test@test.com');
       component.password?.setValue('123');
@@ -106,6 +109,28 @@ describe('LoginComponent', () => {
       component.submit();
       expect(storeSpy).toHaveBeenCalledTimes(1);
       expect(storeSpy).toHaveBeenCalledWith(data);
+    });
+
+    it('should call dispatch on store with register request', () => {
+      const storeSpy = jest.spyOn(store, 'dispatch');
+      component.showRegister = true;
+      component.email?.setValue('test@test.com');
+      component.password?.setValue('123');
+      const data = {
+        type: '[User] Register Request',
+        user: component.form.value,
+      };
+      component.submit();
+      expect(storeSpy).toHaveBeenCalledTimes(1);
+      expect(storeSpy).toHaveBeenCalledWith(data);
+    });
+  });
+
+  describe('toggleRegister', () => {
+    it('should toggle the showRegister', () => {
+      component.showRegister = true;
+      component.toggleRegister();
+      expect(component.showRegister).toEqual(false);
     });
   });
 });

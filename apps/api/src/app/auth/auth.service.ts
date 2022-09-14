@@ -25,8 +25,8 @@ export class AuthService {
 
       return this.signToken(user);
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
-        throw new ForbiddenException('Credentials taken');
+      if (error.code === 'P2002') {
+        throw new ForbiddenException('Username/Password invalid');
       }
       throw error;
     }

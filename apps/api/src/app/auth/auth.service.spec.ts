@@ -98,9 +98,9 @@ describe('AuthService', () => {
       prismaSvc.user.create = throwErrorMock;
       await expect(service.register(mockLogin)).rejects.toEqual(error);
     });
-    it('should error and throw credentials taken', async () => {
-      const error = new PrismaClientKnownRequestError('Credentials taken', 'P2002', '1.0');
-      const exception = new ForbiddenException('Credentials taken');
+    it('should error and throw Username/Password invalid', async () => {
+      const error = new PrismaClientKnownRequestError('Username/Password invalid', 'P2002', '1.0');
+      const exception = new ForbiddenException('Username/Password invalid');
       const throwErrorMock = jest.fn().mockRejectedValueOnce(error);
       prismaSvc.user.create = throwErrorMock;
       await expect(service.register(mockLogin)).rejects.toEqual(exception);

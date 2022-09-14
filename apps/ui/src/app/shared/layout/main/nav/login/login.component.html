@@ -15,12 +15,16 @@
     </mat-form-field>
     <div class="btn-group">
       <button mat-raised-button type="submit" data-cy="login-submit" color="primary" [disabled]="loading$ | async">
-        <mat-icon *ngIf="(loading$ | async) === false">login</mat-icon>
-        <mat-spinner [diameter]="24" *ngIf="loading$ | async" class="spinner-icon"></mat-spinner> Login
+        <mat-icon *ngIf="(loading$ | async) === false" [inline]="true">{{
+          showRegister ? 'person_add' : 'login'
+        }}</mat-icon>
+        <mat-spinner [diameter]="24" *ngIf="loading$ | async" class="spinner-icon"></mat-spinner>
+        {{ showRegister ? 'Create an Account' : 'Login' }}
       </button>
-      <a mat-raised-button routerLink="register" type="button" (click)="this.closeOverlay.emit()" class="create-btn"
-        ><mat-icon>person_add</mat-icon> Create an Account</a
-      >
+      <button mat-raised-button type="button" (click)="toggleRegister()" class="create-btn" data-cy="register-toggle">
+        <mat-icon [inline]="true">{{ showRegister ? 'login' : 'person_add' }}</mat-icon>
+        {{ showRegister ? 'Back to Login' : 'Create an Account' }}
+      </button>
     </div>
   </form>
 </ng-container>

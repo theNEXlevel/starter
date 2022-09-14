@@ -36,17 +36,4 @@ describe('Navigation', () => {
       );
     });
   });
-
-  describe('register', () => {
-    beforeEach(() => cy.visit('/register'));
-
-    it('should display Register as h1', () => {
-      cy.get('h1').contains('Register');
-    });
-
-    it('should have 2 input fields', () => {
-      cy.get('label').first().contains('Email');
-      cy.get('label').last().contains('Password');
-    });
-  });
 });
