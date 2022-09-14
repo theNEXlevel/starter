@@ -9,3 +9,6 @@ export const selectUser = createSelector(selectUserState, (state) => {
 export const selectUserMsg = createSelector(selectUserState, (state) => {
   return state.msg;
 });
+export const selectUserDarkMode = createSelector(selectUserState, (state) => {
+  return state.darkMode;
+});

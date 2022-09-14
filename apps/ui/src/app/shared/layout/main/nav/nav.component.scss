@@ -28,3 +28,15 @@
 .icon-right {
   margin-right: 0.5rem;
 }
+
+.theme {
+  &-toggle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &-icon {
+    cursor: pointer;
+  }
+}

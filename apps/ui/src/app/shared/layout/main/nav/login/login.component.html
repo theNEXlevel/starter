@@ -1,4 +1,4 @@
-<ng-container *ngIf="vm$ | async">
+<ng-container *ngIf="vm$ | async as vm">
   <form [formGroup]="form" (ngSubmit)="submit()">
     <mat-form-field class="full-width" appearance="fill">
       <mat-label>Email</mat-label>
@@ -14,11 +14,9 @@
       <mat-error *ngIf="password?.hasError('required')" data-cy="password-required"> Password is required </mat-error>
     </mat-form-field>
     <div class="btn-group">
-      <button mat-raised-button type="submit" data-cy="login-submit" color="primary" [disabled]="loading$ | async">
-        <mat-icon *ngIf="(loading$ | async) === false" [inline]="true">{{
-          showRegister ? 'person_add' : 'login'
-        }}</mat-icon>
-        <mat-spinner [diameter]="24" *ngIf="loading$ | async" class="spinner-icon"></mat-spinner>
+      <button mat-raised-button type="submit" data-cy="login-submit" color="primary" [disabled]="vm.loading">
+        <mat-icon *ngIf="!vm.loading" [inline]="true">{{ showRegister ? 'person_add' : 'login' }}</mat-icon>
+        <mat-spinner [diameter]="24" *ngIf="vm.loading" class="spinner-icon"></mat-spinner>
         {{ showRegister ? 'Create an Account' : 'Login' }}
       </button>
       <button mat-raised-button type="button" (click)="toggleRegister()" class="create-btn" data-cy="register-toggle">

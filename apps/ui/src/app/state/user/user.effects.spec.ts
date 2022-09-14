@@ -10,6 +10,7 @@ import { Error, User } from '@starter/api-interfaces';
 const initialState = {
   user: {},
   msg: {},
+  darkMode: false,
 };
 
 const mockAuthService = {

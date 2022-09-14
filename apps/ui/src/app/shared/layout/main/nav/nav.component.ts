@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Renderer2 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map, shareReplay, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { selectUser, logoutUser, showMsg } from '../../../../state';
-import { CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { selectUser, logoutUser, showMsg, toggleDarkMode, selectUserDarkMode } from '../../../../state';
+import { CdkOverlayOrigin, OverlayContainer } from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'starter-nav',
@@ -17,18 +18,40 @@ export class NavComponent {
     map((result) => result.matches),
     shareReplay()
   );
-
   triggerOrigin!: CdkOverlayOrigin;
-
   user$ = this.store.select(selectUser);
-
   open = false;
+  darkMode$ = this.store.select(selectUserDarkMode).pipe(
+    tap((darkMode) => {
+      if (darkMode) {
+        this.renderer.addClass(this.document.body, 'dark-mode');
+        this.overlay.getContainerElement().classList.add('dark-mode');
+      } else {
+        this.renderer.removeClass(this.document.body, 'dark-mode');
+        this.overlay.getContainerElement().classList.remove('dark-mode');
+      }
+    })
+  );
 
-  constructor(private breakpointObserver: BreakpointObserver, private store: Store) {}
+  vm$ = combineLatest([this.isHandset$, this.darkMode$, this.user$]).pipe(
+    map(([isHandset, darkMode, user]) => ({ isHandset, darkMode, user }))
+  );
 
-  toggle(trigger: CdkOverlayOrigin) {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2,
+    private breakpointObserver: BreakpointObserver,
+    private store: Store,
+    private overlay: OverlayContainer
+  ) {}
+
+  toggle(trigger: CdkOverlayOrigin): void {
     this.triggerOrigin = trigger;
     this.open = !this.open;
+  }
+
+  toggleTheme(): void {
+    this.store.dispatch(toggleDarkMode());
   }
 
   logout(): void {

@@ -11,3 +11,4 @@ export const registerRequest = createAction(`${userStart} Register Request`, pro
 export const registerSuccess = createAction(`${userApiStart} Register Success`, props<{ user: User }>());
 export const registerError = createAction(`${userApiStart} Register Error`, props<{ error: Error }>());
 export const logoutUser = createAction(`${userStart} Logout`);
+export const toggleDarkMode = createAction(`${userStart} Toggle Dark Mode`);
