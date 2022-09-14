@@ -20,7 +20,7 @@ describe('Register', () => {
   });
 
   describe('Success', () => {
-    it('should login and login the user and navigate to dashboard', () => {
+    it('should register and login the user and then navigate to dashboard', () => {
       cy.get('[data-cy=login-email]').type('test@test.com');
       cy.get('[data-cy=login-password]').type('123');
       cy.get('[data-cy=login-submit]').click();
