@@ -13,7 +13,7 @@
       cdkOverlayOrigin
       #trigger="cdkOverlayOrigin"
       (click)="toggle(trigger)">
-      <mat-icon>login</mat-icon>
+      <mat-icon [inline]="true">login</mat-icon>
       Login / Register
     </button>
     <button
@@ -25,7 +25,7 @@
       cdkOverlayOrigin
       #trigger="cdkOverlayOrigin"
       (click)="logout()">
-      <mat-icon>logout</mat-icon>
+      <mat-icon [inline]="true">logout</mat-icon>
       Logout
     </button>
   </mat-toolbar>

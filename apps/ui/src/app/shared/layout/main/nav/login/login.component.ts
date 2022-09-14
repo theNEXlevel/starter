@@ -15,6 +15,7 @@ import * as UserActions from '../../../../../state/user';
 export class LoginComponent {
   loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
+  showRegister = false;
   form = new FormGroup<LoginForm>({
     email: new FormControl<string>('', { validators: [Validators.required, Validators.email], nonNullable: true }),
     password: new FormControl<string>('', { validators: [Validators.required], nonNullable: true }),
@@ -57,6 +58,10 @@ export class LoginComponent {
     }
     this.loadingSubject.next(true);
     const data = { user: this.form.value as Login };
-    this.store.dispatch(UserActions.loginRequest(data));
+    this.store.dispatch(this.showRegister ? UserActions.registerRequest(data) : UserActions.loginRequest(data));
+  }
+
+  toggleRegister(): void {
+    this.showRegister = !this.showRegister;
   }
 }
