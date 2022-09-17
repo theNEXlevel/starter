@@ -2,10 +2,10 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { filter, tap } from 'rxjs';
-import { selectMsg } from '../../../state';
+import { selectMsg } from '../../state';
 
 @Component({
-  selector: 'starter-main',
+  selector: 'sta-sh-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,7 +19,7 @@ export class MainComponent implements OnInit {
         undefined,
         {
           horizontalPosition: 'end',
-          verticalPosition: 'top',
+          verticalPosition: 'bottom',
           panelClass: err.error ? 'notif-error' : 'notif-success',
           duration: 3000,
         }

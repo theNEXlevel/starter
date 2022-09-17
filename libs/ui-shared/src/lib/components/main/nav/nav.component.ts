@@ -3,12 +3,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { selectUser, logoutUser, showMsg, toggleDarkMode, selectUserDarkMode } from '../../../../state';
 import { CdkOverlayOrigin, OverlayContainer } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
+import { logoutUser, selectUser, selectUserDarkMode, showMsg, toggleDarkMode } from '../../../state';
 
 @Component({
-  selector: 'starter-nav',
+  selector: 'sta-sh-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

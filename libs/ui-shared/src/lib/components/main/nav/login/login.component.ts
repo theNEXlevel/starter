@@ -3,11 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Login, LoginForm } from '@starter/api-interfaces';
 import { BehaviorSubject, combineLatest, map, tap } from 'rxjs';
-import { selectUser, selectUserMsg, showMsg } from '../../../../../state';
-import * as UserActions from '../../../../../state/user';
+import { selectUser, selectUserMsg, showMsg } from '../../../../state';
+import * as UserActions from '../../../../state/user';
 
 @Component({
-  selector: 'starter-login',
+  selector: 'sta-sh-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
