@@ -1,0 +1,57 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <mat-toolbar color="primary">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <h1>Starter</h1>
+    <div class="theme-toggle">
+      <mat-icon [inline]="true" class="theme-icon" (click)="toggleTheme()" data-cy="toggle-theme">{{
+        vm.darkMode ? 'dark_mode' : 'light_mode'
+      }}</mat-icon>
+      <button
+        mat-raised-button
+        *ngIf="!vm.user.id"
+        class="login-btn"
+        color="accent"
+        data-cy="login"
+        cdkOverlayOrigin
+        #trigger="cdkOverlayOrigin"
+        (click)="toggle(trigger)">
+        <mat-icon [inline]="true">login</mat-icon>
+        Login / Register
+      </button>
+      <button
+        mat-raised-button
+        *ngIf="vm.user.id"
+        class="login-btn"
+        color="accent"
+        data-cy="login"
+        cdkOverlayOrigin
+        #trigger="cdkOverlayOrigin"
+        (click)="logout()">
+        <mat-icon [inline]="true">logout</mat-icon>
+        Logout
+      </button>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+      #drawer
+      class="sidenav"
+      [attr.role]="vm.isHandset ? 'dialog' : 'navigation'"
+      [mode]="vm.isHandset ? 'over' : 'side'"
+      [opened]="vm.isHandset === false">
+      <mat-nav-list>
+        <a mat-list-item routerLink=""><mat-icon class="icon-right">home</mat-icon> Home</a>
+        <a mat-list-item routerLink="dashboard"><mat-icon class="icon-right">dashboard</mat-icon> Dashboard</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="triggerOrigin" [cdkConnectedOverlayOpen]="open">
+    <sta-sh-login (closeOverlay)="open = false"></sta-sh-login>
+  </ng-template>
+</ng-container>

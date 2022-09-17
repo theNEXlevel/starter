@@ -3,6 +3,22 @@
   "sourceRoot": "libs/api-interfaces/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/libs/api-interfaces"],
+      "options": {
+        "project": "libs/api-interfaces/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/api-interfaces/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/api-interfaces/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

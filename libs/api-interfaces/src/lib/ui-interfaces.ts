@@ -1,4 +1,5 @@
 import { AbstractControl } from '@angular/forms';
+import { User } from './prisma';
 
 export interface LoginForm {
   email: AbstractControl<string>;
@@ -10,3 +11,5 @@ export interface Error {
   message: string[] | string;
   statusCode: number;
 }
+
+export type UserUI = User;
