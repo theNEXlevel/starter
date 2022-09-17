@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { selectMsg } from '../../../state';
+import { selectMsg } from '../../state';
 
 import { MainComponent } from './main.component';
 
@@ -19,6 +19,7 @@ describe('MainComponent', () => {
 
   afterEach(() => {
     store.resetSelectors();
+    mockMatSnackBar.open.mockReset();
   });
 
   beforeEach(waitForAsync(() => {

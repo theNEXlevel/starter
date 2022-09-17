@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { selectUser, selectUserMsg } from '../../../../../state';
+import { selectUser, selectUserMsg } from '../../../../state';
 
 import { LoginComponent } from './login.component';
 

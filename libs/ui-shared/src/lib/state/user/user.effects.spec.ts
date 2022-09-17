@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable, of, throwError } from 'rxjs';
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { UserEffects } from './user.effects';
 import * as UserActions from './user.actions';
 import { Error, User } from '@starter/api-interfaces';

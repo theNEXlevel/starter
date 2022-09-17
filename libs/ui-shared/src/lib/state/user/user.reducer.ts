@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { Error, User } from '@starter/api-interfaces';
+import { Error, UserUI } from '@starter/api-interfaces';
 import { loginError, loginSuccess, logoutUser, registerError, registerSuccess, toggleDarkMode } from './user.actions';
 
 export interface UserState {
-  user: Partial<User>;
+  user: Partial<UserUI>;
   msg: Partial<Error>;
   darkMode: boolean;
 }

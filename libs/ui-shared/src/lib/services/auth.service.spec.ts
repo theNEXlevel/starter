@@ -5,7 +5,12 @@ import { provideMockStore, MockStore } from '@ngrx/store/testing';
 
 import { AuthService } from './auth.service';
 import { Login } from '@starter/api-interfaces';
-import { selectMsg, selectUser } from '../../state';
+import { selectMsg, selectUser } from '../state';
+
+const envMock = {
+  production: true,
+  apiUrl: 'http://localhost:3000/api',
+};
 
 describe('AuthService', () => {
   let httpTestingController: HttpTestingController;
@@ -15,7 +20,7 @@ describe('AuthService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [provideMockStore({})],
+      providers: [provideMockStore({}), { provide: 'env', useValue: envMock }],
     });
     service = TestBed.inject(AuthService);
     store = TestBed.inject(MockStore);

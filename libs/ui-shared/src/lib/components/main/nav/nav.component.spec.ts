@@ -12,7 +12,7 @@ import { NavComponent } from './nav.component';
 import { of } from 'rxjs';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { CdkOverlayOrigin, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
-import { selectUser, selectUserDarkMode } from '../../../../state';
+import { selectUser, selectUserDarkMode } from '../../../state';
 
 const breakpointObserverMock = {
   observe: jest.fn().mockReturnValue(of({ matches: true })),
