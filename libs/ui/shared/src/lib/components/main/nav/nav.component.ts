@@ -8,7 +8,7 @@ import { DOCUMENT } from '@angular/common';
 import { logoutUser, selectUser, selectUserDarkMode, showMsg, toggleDarkMode } from '../../../state';
 
 @Component({
-  selector: 'sta-sh-nav',
+  selector: 'sta--nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

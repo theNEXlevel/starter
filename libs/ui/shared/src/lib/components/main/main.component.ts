@@ -5,7 +5,7 @@ import { filter, tap } from 'rxjs';
 import { selectMsg } from '../../state';
 
 @Component({
-  selector: 'sta-sh-main',
+  selector: 'sta--main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -10,7 +10,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "staSh",
+            "prefix": "sta",
             "style": "camelCase"
           }
         ],
@@ -18,7 +18,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "sta-sh",
+            "prefix": "sta-",
             "style": "kebab-case"
           }
         ]
