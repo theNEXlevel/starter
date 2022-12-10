@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Inject, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Renderer2 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
