@@ -13,3 +13,13 @@ export interface Error {
 }
 
 export type UserUI = User;
+
+export interface Environment {
+  production: boolean;
+  apiUrl: string;
+}
+
+// export const ENV: Environment = {
+//   production: true,
+//   apiUrl: 'http://localhost:3000/api',
+// };

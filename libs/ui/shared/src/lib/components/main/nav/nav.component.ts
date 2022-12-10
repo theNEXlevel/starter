@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Inject, Renderer2 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
@@ -14,6 +14,12 @@ import { logoutUser, selectUser, selectUserDarkMode, showMsg, toggleDarkMode } f
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent {
+  private document = inject(DOCUMENT);
+  private renderer = inject(Renderer2);
+  private breakpointObserver = inject(BreakpointObserver);
+  private store = inject(Store);
+  private overlay = inject(OverlayContainer);
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map((result) => result.matches),
     shareReplay()
@@ -36,14 +42,6 @@ export class NavComponent {
   vm$ = combineLatest([this.isHandset$, this.darkMode$, this.user$]).pipe(
     map(([isHandset, darkMode, user]) => ({ isHandset, darkMode, user }))
   );
-
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private renderer: Renderer2,
-    private breakpointObserver: BreakpointObserver,
-    private store: Store,
-    private overlay: OverlayContainer
-  ) {}
 
   toggle(trigger: CdkOverlayOrigin): void {
     this.triggerOrigin = trigger;

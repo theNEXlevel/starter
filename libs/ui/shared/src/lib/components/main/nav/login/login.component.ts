@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Login, LoginForm } from '@starter/interfaces';
@@ -13,6 +13,8 @@ import * as UserActions from '../../../../state/user';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
+  private store = inject(Store);
+
   loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
   showRegister = false;
@@ -50,8 +52,6 @@ export class LoginComponent {
   }
 
   @Output() closeOverlay = new EventEmitter();
-
-  constructor(private store: Store) {}
 
   submit(): void {
     if (this.form.invalid) {

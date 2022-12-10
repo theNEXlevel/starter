@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { Store } from '@ngrx/store';
 import { filter, tap } from 'rxjs';
@@ -11,6 +11,9 @@ import { selectMsg } from '../../state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainComponent implements OnInit {
+  private store = inject(Store);
+  private snackBar = inject(MatSnackBar);
+
   error$ = this.store.select(selectMsg).pipe(
     filter((err) => !!err.message),
     tap((err) => {
@@ -26,7 +29,6 @@ export class MainComponent implements OnInit {
       );
     })
   );
-  constructor(private store: Store, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.error$.subscribe();

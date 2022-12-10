@@ -1,14 +1,15 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Login, UserUI } from '@starter/interfaces';
+import { ENV, Login, UserUI } from '@starter/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  baseUrl = `${this.env.apiUrl}/auth`;
+  private env = inject(ENV);
+  private http = inject(HttpClient);
 
-  constructor(@Inject('env') private env: any, private http: HttpClient) {}
+  baseUrl = `${this.env.apiUrl}/auth`;
 
   login(data: Login) {
     return this.http.post<UserUI>(`${this.baseUrl}/login`, data);

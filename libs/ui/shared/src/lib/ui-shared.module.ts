@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -19,6 +18,7 @@ import { FooterComponent } from './components/main/footer/footer.component';
 import { MainComponent } from './components/main/main.component';
 import { NavComponent } from './components/main/nav/nav.component';
 import { LoginComponent } from './components/main/nav/login/login.component';
+import { ENV, Environment } from '@starter/interfaces';
 
 const sharedModules = [
   ReactiveFormsModule,
@@ -43,12 +43,12 @@ const sharedModules = [
   exports: sharedModules,
 })
 export class UiSharedModule {
-  public static forRoot(environment: any): ModuleWithProviders<UiSharedModule> {
+  public static forRoot(environment: Environment): ModuleWithProviders<UiSharedModule> {
     return {
       ngModule: UiSharedModule,
       providers: [
         {
-          provide: 'env',
+          provide: ENV,
           useValue: environment,
         },
       ],
