@@ -3,22 +3,6 @@
   "sourceRoot": "libs/ui-home/src",
   "prefix": "sta-ho",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:ng-packagr-lite",
-      "outputs": ["dist/libs/ui-home"],
-      "options": {
-        "project": "libs/ui-home/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/ui-home/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/ui-home/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/ui-home"],

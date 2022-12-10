@@ -3,22 +3,6 @@
   "sourceRoot": "libs/ui-dashboard/src",
   "prefix": "sta-da",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:ng-packagr-lite",
-      "outputs": ["dist/libs/ui-dashboard"],
-      "options": {
-        "project": "libs/ui-dashboard/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/ui-dashboard/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/ui-dashboard/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/ui-dashboard"],
