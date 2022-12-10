@@ -18,7 +18,8 @@ import { FooterComponent } from './components/main/footer/footer.component';
 import { MainComponent } from './components/main/main.component';
 import { NavComponent } from './components/main/nav/nav.component';
 import { LoginComponent } from './components/main/nav/login/login.component';
-import { ENV, Environment } from '@starter/interfaces';
+import { Environment } from '@starter/interfaces';
+import { ENV } from '@starter/libs/ui/tokens';
 
 const sharedModules = [
   ReactiveFormsModule,

@@ -8,6 +8,7 @@
     "ui": "apps/ui",
     "ui-dashboard": "libs/ui/dashboard",
     "ui-home": "libs/ui/home",
-    "ui-shared": "libs/ui/shared"
+    "ui-shared": "libs/ui/shared",
+    "ui-tokens": "libs/ui/tokens"
   }
 }

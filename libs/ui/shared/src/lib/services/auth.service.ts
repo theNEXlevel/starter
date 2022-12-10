@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ENV, Login, UserUI } from '@starter/interfaces';
+import { Login, UserUI } from '@starter/interfaces';
+import { ENV } from '@starter/libs/ui/tokens';
 
 @Injectable({
   providedIn: 'root',

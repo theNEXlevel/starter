@@ -4,8 +4,9 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 
 import { AuthService } from './auth.service';
-import { ENV, Login } from '@starter/interfaces';
+import { Login } from '@starter/interfaces';
 import { selectMsg, selectUser } from '../state';
+import { ENV } from '@starter/libs/ui/tokens';
 
 const envMock = {
   production: true,
