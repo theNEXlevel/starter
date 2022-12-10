@@ -3,7 +3,7 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
-    "api-interfaces": "libs/api-interfaces",
+    "interfaces": "libs/interfaces",
     "e2e": "apps/e2e",
     "ui": "apps/ui",
     "ui-dashboard": "libs/ui-dashboard",

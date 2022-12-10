@@ -5,7 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { UserEffects } from './user.effects';
 import * as UserActions from './user.actions';
-import { Error, User } from '@starter/api-interfaces';
+import { Error, User } from '@starter/interfaces';
 
 const initialState = {
   user: {},

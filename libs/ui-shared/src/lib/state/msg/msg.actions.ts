@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Error } from '@starter/api-interfaces';
+import { Error } from '@starter/interfaces';
 
 const start = '[Msg]';
 

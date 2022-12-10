@@ -1,4 +1,4 @@
-import { Error } from '@starter/api-interfaces';
+import { Error } from '@starter/interfaces';
 import { UserState } from './user';
 
 export interface AppState {

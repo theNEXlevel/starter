@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Login, LoginForm } from '@starter/api-interfaces';
+import { Login, LoginForm } from '@starter/interfaces';
 import { BehaviorSubject, combineLatest, map, tap } from 'rxjs';
 import { selectUser, selectUserMsg, showMsg } from '../../../../state';
 import * as UserActions from '../../../../state/user';

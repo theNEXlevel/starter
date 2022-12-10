@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Error, Login, UserUI } from '@starter/api-interfaces';
+import { Error, Login, UserUI } from '@starter/interfaces';
 
 const userStart = '[User]';
 const userApiStart = '[User API]';

@@ -7,7 +7,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
 } from '@nestjs/swagger';
-import { ErrorEntity, Login, UserEntity } from '@starter/api-interfaces';
+import { ErrorEntity, Login, UserEntity } from '@starter/interfaces';
 import { AuthService } from './auth.service';
 
 @ApiTags('auth')
