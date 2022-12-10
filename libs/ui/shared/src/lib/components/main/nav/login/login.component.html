@@ -15,12 +15,12 @@
     </mat-form-field>
     <div class="btn-group">
       <button mat-raised-button type="submit" data-cy="login-submit" color="primary" [disabled]="vm.loading">
-        <mat-icon *ngIf="!vm.loading" [inline]="true">{{ showRegister ? 'person_add' : 'login' }}</mat-icon>
+        <mat-icon *ngIf="!vm.loading">{{ showRegister ? 'person_add' : 'login' }}</mat-icon>
         <mat-spinner [diameter]="24" *ngIf="vm.loading" class="spinner-icon"></mat-spinner>
         {{ showRegister ? 'Create an Account' : 'Login' }}
       </button>
       <button mat-raised-button type="button" (click)="toggleRegister()" class="create-btn" data-cy="register-toggle">
-        <mat-icon [inline]="true">{{ showRegister ? 'login' : 'person_add' }}</mat-icon>
+        <mat-icon>{{ showRegister ? 'login' : 'person_add' }}</mat-icon>
         {{ showRegister ? 'Back to Login' : 'Create an Account' }}
       </button>
     </div>

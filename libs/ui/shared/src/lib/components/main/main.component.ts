@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { filter, tap } from 'rxjs';
 import { selectMsg } from '../../state';
