@@ -1,4 +1,5 @@
 {
+  "name": "ui-shared",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/ui/shared/src",
@@ -6,7 +7,7 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ui/shared"],
+      "outputs": ["{workspaceRoot}/coverage/libs/ui/shared"],
       "options": {
         "jestConfig": "libs/ui/shared/jest.config.ts",
         "passWithNoTests": true
