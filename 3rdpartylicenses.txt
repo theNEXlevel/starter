@@ -75,12 +75,6 @@ MIT
 @ngrx/store-devtools
 MIT
 
-@starter/ui-dashboard
-
-@starter/ui-home
-
-@starter/ui-shared
-
 deepmerge
 MIT
 The MIT License (MIT)
