@@ -3,11 +3,11 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
-    "interfaces": "libs/interfaces",
     "e2e": "apps/e2e",
+    "interfaces": "libs/interfaces",
     "ui": "apps/ui",
     "ui-dashboard": "libs/ui-dashboard",
     "ui-home": "libs/ui-home",
-    "ui-shared": "libs/ui-shared"
+    "ui-shared": "libs/ui/shared"
   }
 }

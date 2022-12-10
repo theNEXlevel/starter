@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UiSharedModule } from '@starter/ui-shared';
+import { UiSharedModule } from 'shared';
 import { UiDashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 
