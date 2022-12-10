@@ -24,7 +24,7 @@ describe('Register', () => {
       cy.get('[data-cy=login-email]').type('test@test.com');
       cy.get('[data-cy=login-password]').type('123');
       cy.get('[data-cy=login-submit]').click();
-      cy.get('.mat-simple-snack-bar-content').contains('You have been logged in!');
+      cy.get('.mat-mdc-snack-bar-label').contains('You have been logged in!');
     });
   });
 });
@@ -52,7 +52,7 @@ describe('Login', () => {
       cy.get('[data-cy=login-email]').type('test2@test.com');
       cy.get('[data-cy=login-password]').type('123');
       cy.get('[data-cy=login-submit]').click();
-      cy.get('.mat-simple-snack-bar-content').contains('Forbidden - Credentials Incorrect');
+      cy.get('.mat-mdc-snack-bar-label').contains('Forbidden - Credentials Incorrect');
     });
   });
 
@@ -61,7 +61,7 @@ describe('Login', () => {
       cy.get('[data-cy=login-email]').type('test@test.com');
       cy.get('[data-cy=login-password]').type('123');
       cy.get('[data-cy=login-submit]').click();
-      cy.get('.mat-simple-snack-bar-content').contains('You have been logged in!');
+      cy.get('.mat-mdc-snack-bar-label').contains('You have been logged in!');
     });
   });
 });

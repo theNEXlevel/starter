@@ -23,8 +23,7 @@ export class MainComponent implements OnInit {
         {
           horizontalPosition: 'end',
           verticalPosition: 'bottom',
-          panelClass: err.error ? 'notif-error' : 'notif-success',
-          duration: 3000,
+          duration: 5000,
         }
       );
     })
