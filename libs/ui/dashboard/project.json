@@ -1,0 +1,24 @@
+{
+  "name": "ui-dashboard",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/ui/dashboard/src",
+  "prefix": "sta",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/ui/dashboard"],
+      "options": {
+        "jestConfig": "libs/ui/dashboard/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/ui/dashboard/**/*.ts", "libs/ui/dashboard/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

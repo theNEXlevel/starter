@@ -40,4 +40,4 @@ testem.log
 Thumbs.db
 
 .angular
-/libs/api-interfaces/src/lib/prisma
+/libs/interfaces/src/lib/prisma

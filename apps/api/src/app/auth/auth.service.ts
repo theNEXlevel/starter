@@ -2,7 +2,7 @@ import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
-import { Login, User, UserEntity } from '@starter/api-interfaces';
+import { Login, User, UserEntity } from '@starter/interfaces';
 
 @Injectable()
 export class AuthService {

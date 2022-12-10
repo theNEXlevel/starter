@@ -15,10 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@starter/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@starter/ui-dashboard": ["libs/ui-dashboard/src/index.ts"],
-      "@starter/ui-home": ["libs/ui-home/src/index.ts"],
-      "@starter/ui-shared": ["libs/ui-shared/src/index.ts"]
+      "@starter/interfaces": ["libs/interfaces/src/index.ts"],
+      "@starter/libs/ui/dashboard": ["libs/ui/dashboard/src/index.ts"],
+      "@starter/libs/ui/home": ["libs/ui/home/src/index.ts"],
+      "@starter/libs/ui/shared": ["libs/ui/shared/src/index.ts"],
+      "@starter/libs/ui/tokens": ["libs/ui/tokens/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
