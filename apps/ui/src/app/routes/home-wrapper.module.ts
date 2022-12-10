@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UiHomeModule } from '@starter/ui-home';
+import { UiHomeModule } from '@starter/libs/ui/home';
 
 @NgModule({
   imports: [UiHomeModule],

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UiDashboardModule } from '@starter/ui-dashboard';
+import { UiDashboardModule } from '@starter/libs/ui/dashboard';
 
 @NgModule({
   imports: [UiDashboardModule],

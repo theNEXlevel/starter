@@ -6,8 +6,8 @@
     "e2e": "apps/e2e",
     "interfaces": "libs/interfaces",
     "ui": "apps/ui",
-    "ui-dashboard": "libs/ui-dashboard",
-    "ui-home": "libs/ui-home",
+    "ui-dashboard": "libs/ui/dashboard",
+    "ui-home": "libs/ui/home",
     "ui-shared": "libs/ui/shared"
   }
 }
