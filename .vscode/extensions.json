@@ -5,7 +5,7 @@
     "esbenp.prettier-vscode",
     "firsttris.vscode-jest-runner",
     "dbaeumer.vscode-eslint",
-    "rrapidapi.vscode-rapidapi-client",
+    "rapidapi.vscode-rapidapi-client",
     "ms-azuretools.vscode-docker",
     "prisma.prisma",
     "donjayamanne.githistory",
