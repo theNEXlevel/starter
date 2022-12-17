@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { Login, User, UserEntity } from '@starter/interfaces';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class AuthService {
@@ -10,6 +11,7 @@ export class AuthService {
     private prismaSvc: PrismaService,
     private jwtSvc: JwtService,
     private configSvc: ConfigService,
+    private mailSvc: MailService,
     @Inject('argon') private argon
   ) {}
   async register(dto: Login) {
@@ -22,7 +24,9 @@ export class AuthService {
         },
       });
 
-      return this.signToken(user);
+      this.signToken(user);
+      await this.mailSvc.sendUserConfirmation(user);
+      return null;
     } catch (error) {
       if (error.code === 'P2002') {
         throw new ForbiddenException('Username/Password invalid');

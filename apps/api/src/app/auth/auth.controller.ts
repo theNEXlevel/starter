@@ -17,9 +17,9 @@ export class AuthController {
   constructor(private authSvc: AuthService) {}
 
   @Post('register')
-  @ApiOperation({ summary: 'register a new user and login' })
+  @ApiOperation({ summary: 'register a new user and send confirmation email' })
   @ApiConsumes('application/x-www-form-urlencoded')
-  @ApiCreatedResponse({ status: 201, description: 'Registered and logged in', type: UserEntity })
+  @ApiCreatedResponse({ status: 201, description: 'Registered and email sent', type: null })
   @ApiBadRequestResponse({ status: 400, description: 'Data incorrect', type: ErrorEntity })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden' })
   register(@Body() dto: Login) {
