@@ -19,7 +19,7 @@ export const userReducer = createReducer(
   initialState,
   on(loginSuccess, (state, payload) => ({ ...state, ...{ user: payload.user, msg: {} } })),
   on(loginError, (state, payload) => ({ ...state, msg: payload.error })),
-  on(registerSuccess, (state, payload) => ({ ...state, ...{ user: payload.user, msg: {} } })),
+  on(registerSuccess, (state) => ({ ...state, ...{ user: { verified: false } } })),
   on(registerError, (state, payload) => ({ ...state, msg: payload.error })),
   on(logoutUser, () => initialState),
   on(toggleDarkMode, (state) => ({ ...state, darkMode: !state.darkMode }))

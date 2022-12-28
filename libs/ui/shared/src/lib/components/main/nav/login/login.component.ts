@@ -15,8 +15,7 @@ import * as UserActions from '../../../../state/user';
 export class LoginComponent {
   private store = inject(Store);
 
-  loadingSubject = new BehaviorSubject<boolean>(false);
-  loading$ = this.loadingSubject.asObservable();
+  loading$ = new BehaviorSubject<boolean>(false);
   showRegister = false;
   form = new FormGroup<LoginForm>({
     email: new FormControl<string>('', { validators: [Validators.required, Validators.email], nonNullable: true }),
@@ -26,22 +25,25 @@ export class LoginComponent {
     tap((user) => {
       if (user.id) {
         this.closeOverlay.emit();
-        this.loadingSubject.next(false);
+        this.loading$.next(false);
         this.store.dispatch(showMsg({ msg: { message: 'You have been logged in!' } }));
+      } else if (user.verified === false) {
+        this.closeOverlay.emit();
+        this.loading$.next(false);
+        this.store.dispatch(showMsg({ msg: { message: 'Check your email for a confirmation!' } }));
       }
     })
   );
+
   userError$ = this.store.select(selectUserMsg).pipe(
     tap((msg) => {
       if (msg.error) {
-        this.loadingSubject.next(false);
+        this.loading$.next(false);
         this.store.dispatch(showMsg({ msg }));
       }
     })
   );
-  vm$ = combineLatest([this.user$, this.userError$, this.loading$]).pipe(
-    map(([user, userError, loading]) => ({ user, userError, loading }))
-  );
+  vm$ = combineLatest([this.user$, this.userError$, this.loading$]).pipe(map(([, , loading]) => ({ loading })));
 
   get email() {
     return this.form.get('email');
@@ -57,7 +59,7 @@ export class LoginComponent {
     if (this.form.invalid) {
       return;
     }
-    this.loadingSubject.next(true);
+    this.loading$.next(true);
     const data = { user: this.form.value as Login };
     this.store.dispatch(this.showRegister ? UserActions.registerRequest(data) : UserActions.loginRequest(data));
   }

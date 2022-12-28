@@ -53,11 +53,8 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should set loadingSubject to a behaviorSubject and set it to false', () => {
-    expect(component.loadingSubject.value).toEqual(false);
-  });
-  it('should set loading$ to an observable', () => {
-    expect(typeof component.loading$).toEqual(typeof component.loadingSubject.asObservable());
+  it('should set loading$ to a behaviorSubject and set it to false', () => {
+    expect(component.loading$.value).toEqual(false);
   });
   it('should set form to a formGroup with 2 input fields defaulted to empty strings', () => {
     expect(component.form.get('email')?.value).toEqual('');
@@ -75,7 +72,7 @@ describe('LoginComponent', () => {
       component.user$.subscribe();
     });
     it('should set loading subject to false', () => {
-      expect(component.loadingSubject.value).toEqual(false);
+      expect(component.loading$.value).toEqual(false);
     });
     it('should call dispatch on store', () => {
       expect(storeSpy).toHaveBeenCalledTimes(1);
@@ -90,7 +87,7 @@ describe('LoginComponent', () => {
       store.refreshState();
     });
     it('should set loading subject to false', () => {
-      expect(component.loadingSubject.value).toEqual(false);
+      expect(component.loading$.value).toEqual(false);
     });
     it('should call dispatch on store', () => {
       expect(storeSpy).toHaveBeenCalledTimes(1);
@@ -106,7 +103,7 @@ describe('LoginComponent', () => {
       component.email?.setValue('test@test.com');
       component.password?.setValue('123');
       component.submit();
-      expect(component.loadingSubject.value).toEqual(true);
+      expect(component.loading$.value).toEqual(true);
     });
 
     it('should call dispatch on store with login request', () => {

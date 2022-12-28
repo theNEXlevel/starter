@@ -33,8 +33,8 @@ export class UserEffects {
       ofType(UserActions.registerRequest),
       mergeMap((data) =>
         this.authService.register(data.user).pipe(
-          map((user) => {
-            return UserActions.registerSuccess({ user });
+          map(() => {
+            return UserActions.registerSuccess();
           }),
           catchError((err) => {
             const error: Error = err.error;

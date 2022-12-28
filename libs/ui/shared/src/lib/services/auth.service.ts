@@ -17,6 +17,6 @@ export class AuthService {
   }
 
   register(data: Login) {
-    return this.http.post<UserUI>(`${this.baseUrl}/register`, data);
+    return this.http.post<boolean>(`${this.baseUrl}/register`, data);
   }
 }

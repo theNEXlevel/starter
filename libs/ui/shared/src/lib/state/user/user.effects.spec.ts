@@ -61,7 +61,7 @@ describe('UserEffects', () => {
       actions$ = of(UserActions.registerRequest);
       effects.register$.subscribe((action) => {
         expect(mockAuthService.register).toHaveBeenCalledTimes(1);
-        expect(action).toEqual(UserActions.registerSuccess({ user: action as unknown as User }));
+        expect(action).toEqual(UserActions.registerSuccess());
       });
     });
 
