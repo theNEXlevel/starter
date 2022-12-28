@@ -7,7 +7,7 @@ import { selectUser, selectUserMsg, showMsg } from '../../../../state';
 import * as UserActions from '../../../../state/user';
 
 @Component({
-  selector: 'sta--login',
+  selector: 'sta-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

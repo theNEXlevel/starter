@@ -1,1 +1,1 @@
-export * from './lib/ui-dashboard.module';
+export * from './lib/dashboard.module';

@@ -43,10 +43,10 @@ const sharedModules = [
   imports: [...sharedModules],
   exports: sharedModules,
 })
-export class UiSharedModule {
-  public static forRoot(environment: Environment): ModuleWithProviders<UiSharedModule> {
+export class SharedModule {
+  public static forRoot(environment: Environment): ModuleWithProviders<SharedModule> {
     return {
-      ngModule: UiSharedModule,
+      ngModule: SharedModule,
       providers: [
         {
           provide: ENV,

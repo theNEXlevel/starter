@@ -9,11 +9,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./routes/home-wrapper.module').then((m) => m.HomeWrapperModule),
+        loadChildren: () => import('@starter/libs/ui/home').then((m) => m.HomeModule),
       },
       {
         path: 'dashboard',
-        loadChildren: () => import('./routes/dashboard-wrapper.module').then((m) => m.DashboardWrapperModule),
+        loadChildren: () => import('@starter/libs/ui/dashboard').then((m) => m.DashboardModule),
       },
     ],
   },
