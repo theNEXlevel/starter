@@ -12,12 +12,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
-  hash      String
-  name      String?
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  email      String   @unique
+  hash       String
+  name       String?
+  verified   Boolean  @default(false)
+  forgotGuid String   @default(uuid())
 
   @@map("users")
 }

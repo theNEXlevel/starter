@@ -23,6 +23,12 @@ export class UserEntity implements User {
 
   @ApiProperty()
   updatedAt!: Date;
+
+  @ApiProperty()
+  verified!: boolean;
+
+  @ApiProperty()
+  forgotGuid!: string;
 }
 
 export class Login {

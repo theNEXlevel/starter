@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { Login, User, UserEntity } from '@starter/interfaces';
 import { MailService } from '../mail/mail.service';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class AuthService {
@@ -21,12 +22,13 @@ export class AuthService {
         data: {
           email: dto.email,
           hash,
+          forgotGuid: uuid(),
         },
       });
 
       this.signToken(user);
       await this.mailSvc.sendUserConfirmation(user);
-      return null;
+      return true;
     } catch (error) {
       if (error.code === 'P2002') {
         throw new ForbiddenException('Username/Password invalid');
