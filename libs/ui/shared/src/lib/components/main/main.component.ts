@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/cor
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { filter, tap } from 'rxjs';
-import { selectMsg } from '../../state';
+import { selectUserMsg } from '../../state';
 
 @Component({
   selector: 'sta-main',
@@ -14,7 +14,7 @@ export class MainComponent implements OnInit {
   private store = inject(Store);
   private snackBar = inject(MatSnackBar);
 
-  error$ = this.store.select(selectMsg).pipe(
+  error$ = this.store.select(selectUserMsg).pipe(
     filter((err) => !!err.message),
     tap((err) => {
       this.snackBar.open(

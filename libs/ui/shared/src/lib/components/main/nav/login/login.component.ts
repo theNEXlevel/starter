@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Login, LoginForm } from '@starter/interfaces';
 import { BehaviorSubject, combineLatest, map, tap } from 'rxjs';
-import { selectUser, selectUserMsg, showMsg } from '../../../../state';
+import { showMsg } from '../../../../state';
 import * as UserActions from '../../../../state/user';
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginComponent {
     email: new FormControl<string>('', { validators: [Validators.required, Validators.email], nonNullable: true }),
     password: new FormControl<string>('', { validators: [Validators.required], nonNullable: true }),
   });
-  user$ = this.store.select(selectUser).pipe(
+  user$ = this.store.select(UserActions.selectUser).pipe(
     tap((user) => {
       if (user.id) {
         this.closeOverlay.emit();
@@ -31,11 +31,12 @@ export class LoginComponent {
         this.closeOverlay.emit();
         this.loading$.next(false);
         this.store.dispatch(showMsg({ msg: { message: 'Check your email for a confirmation!' } }));
+        this.store.dispatch(UserActions.registerSuccessNotified());
       }
     })
   );
 
-  userError$ = this.store.select(selectUserMsg).pipe(
+  userError$ = this.store.select(UserActions.selectUserMsg).pipe(
     tap((msg) => {
       if (msg.error) {
         this.loading$.next(false);

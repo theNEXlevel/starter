@@ -9,6 +9,7 @@ export const loginSuccess = createAction(`${userApiStart} Login Success`, props<
 export const loginError = createAction(`${userApiStart} Login Error`, props<{ error: Error }>());
 export const registerRequest = createAction(`${userStart} Register Request`, props<{ user: Login }>());
 export const registerSuccess = createAction(`${userApiStart} Register Success`);
+export const registerSuccessNotified = createAction(`${userStart} Register Success Notified`);
 export const registerError = createAction(`${userApiStart} Register Error`, props<{ error: Error }>());
 export const logoutUser = createAction(`${userStart} Logout`);
 export const toggleDarkMode = createAction(`${userStart} Toggle Dark Mode`);
