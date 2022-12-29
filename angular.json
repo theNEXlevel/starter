@@ -3,12 +3,13 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
-    "e2e": "apps/e2e",
-    "interfaces": "libs/interfaces",
-    "ui": "apps/ui",
     "dashboard": "libs/ui/dashboard",
+    "e2e": "apps/e2e",
     "home": "libs/ui/home",
+    "interfaces": "libs/interfaces",
     "shared": "libs/ui/shared",
-    "tokens": "libs/ui/tokens"
+    "tokens": "libs/ui/tokens",
+    "ui": "apps/ui",
+    "auth": "libs/ui/auth"
   }
 }
