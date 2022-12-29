@@ -17,8 +17,9 @@ export class MainComponent implements OnInit {
   error$ = this.store.select(selectUserMsg).pipe(
     filter((err) => !!err.message),
     tap((err) => {
+      const success = err?.statusCode && err.statusCode >= 200 && err.statusCode < 300;
       this.snackBar.open(
-        `${err.error ?? 'Success'} - ${Array.isArray(err.message) ? err.message.join(', ') : err.message}`,
+        `${success ? 'Success' : 'Error'} - ${Array.isArray(err.message) ? err.message.join(', ') : err.message}`,
         undefined,
         {
           horizontalPosition: 'end',

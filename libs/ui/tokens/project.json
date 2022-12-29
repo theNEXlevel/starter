@@ -1,5 +1,5 @@
 {
-  "name": "ui-tokens",
+  "name": "tokens",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/tokens/src",
   "projectType": "library",

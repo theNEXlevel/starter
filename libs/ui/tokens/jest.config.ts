@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'ui-tokens',
+  displayName: 'tokens',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {

@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'ui-home',
+  displayName: 'home',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
