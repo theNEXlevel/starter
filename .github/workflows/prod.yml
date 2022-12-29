@@ -20,7 +20,7 @@ jobs:
           echo DATABASE_URL=$DATABASE_URL >> .env
           echo JWT_SECRET=$JWT_SECRET >> .env
           cat .env
-      - run: npx pnpm i
+      - run: npx pnpm i --frozen-lockfile
       - run: npx pnpm build:all
       - uses: actions/upload-artifact@v3
         with:

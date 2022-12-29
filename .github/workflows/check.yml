@@ -24,7 +24,7 @@ jobs:
           echo DATABASE_URL=$DATABASE_URL >> .env
           echo JWT_SECRET=$JWT_SECRET >> .env
           cat .env
-      - run: npx pnpm i
+      - run: npx pnpm i --frozen-lockfile
       - name: Run Affected Lint
         shell: bash
         run: npx nx affected --target=lint --base origin/main
