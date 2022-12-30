@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'starter-root',
+  selector: 'sta-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

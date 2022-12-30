@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('@starter/libs/ui/home').then((m) => m.HomeModule),
       },
       {
+        path: 'auth',
+        loadChildren: () => import('@starter/libs/ui/auth').then((m) => m.AuthModule),
+      },
+      {
         path: 'dashboard',
         loadChildren: () => import('@starter/libs/ui/dashboard').then((m) => m.DashboardModule),
       },

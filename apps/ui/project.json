@@ -2,7 +2,7 @@
   "name": "ui",
   "projectType": "application",
   "sourceRoot": "apps/ui/src",
-  "prefix": "starter",
+  "prefix": "sta",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

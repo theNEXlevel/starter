@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ConfirmComponent } from './components/confirm';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'confirm',
+    component: ConfirmComponent,
   },
 ];
 

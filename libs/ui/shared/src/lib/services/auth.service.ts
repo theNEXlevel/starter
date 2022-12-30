@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Login, UserUI } from '@starter/interfaces';
+import { Confirm, Login, UserUI } from '@starter/interfaces';
 import { ENV } from '@starter/libs/ui/tokens';
 
 @Injectable({
@@ -11,6 +11,10 @@ export class AuthService {
   private http = inject(HttpClient);
 
   baseUrl = `${this.env.apiUrl}/auth`;
+
+  confirm(data: Confirm) {
+    return this.http.post<UserUI>(`${this.baseUrl}/confirm`, data);
+  }
 
   login(data: Login) {
     return this.http.post<UserUI>(`${this.baseUrl}/login`, data);

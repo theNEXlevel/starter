@@ -18,3 +18,8 @@ export interface Environment {
   production: boolean;
   apiUrl: string;
 }
+
+export interface Confirm {
+  email: string;
+  token: string;
+}
