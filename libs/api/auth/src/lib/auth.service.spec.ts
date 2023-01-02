@@ -3,10 +3,10 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { PrismaService } from '@starter/api/prisma';
 import { Login, UserEntity } from '@starter/interfaces';
-import { PrismaService } from '../prisma/prisma.service';
 import { AuthService } from './auth.service';
-jest.mock('../prisma/prisma.service');
+jest.mock('@starter/api/prisma');
 jest.mock('@nestjs/jwt');
 jest.mock('@nestjs/config');
 

@@ -6,7 +6,7 @@ import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { AuthService } from './auth.service';
 import { Login } from '@starter/interfaces';
 import { selectMsg, selectUser } from '../state';
-import { ENV } from '@starter/libs/ui/tokens';
+import { ENV } from '@starter/ui/tokens';
 
 const envMock = {
   production: true,

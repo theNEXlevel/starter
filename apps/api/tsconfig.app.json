@@ -8,5 +8,11 @@
     "target": "es2015"
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts",
+    "../../libs/api/prisma/src/lib/prisma.module.ts",
+    "../../libs/api/prisma/src/lib/prisma.service.spec.ts",
+    "../../libs/api/prisma/src/lib/prisma.service.ts",
+    "../../libs/api/mail/src/lib/mail.module.ts"
+  ]
 }

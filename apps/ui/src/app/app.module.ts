@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { AppState, msgReducer, SharedModule, UserEffects, userReducer } from '@starter/libs/ui/shared';
+import { AppState, msgReducer, SharedModule, UserEffects, userReducer } from '@starter/ui/shared';
 import { ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { EffectsModule } from '@ngrx/effects';

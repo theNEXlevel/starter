@@ -1,5 +1,5 @@
 {
-  "name": "dashboard",
+  "name": "ui-dashboard",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/ui/dashboard/src",

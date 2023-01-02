@@ -1,21 +1,21 @@
 {
-  "name": "ui-tokens",
+  "name": "api-mail",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ui/tokens/src",
+  "sourceRoot": "libs/api/mail/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/ui/tokens/**/*.ts"]
+        "lintFilePatterns": ["libs/api/mail/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/ui/tokens/jest.config.ts",
+        "jestConfig": "libs/api/mail/jest.config.ts",
         "passWithNoTests": true
       }
     }

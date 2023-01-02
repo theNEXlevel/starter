@@ -1,9 +1,9 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '@starter/api/prisma';
 import { Login, User, UserEntity } from '@starter/interfaces';
-import { MailService } from '../mail/mail.service';
+import { MailService } from '@starter/api/mail';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()

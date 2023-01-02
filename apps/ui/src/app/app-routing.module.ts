@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from '@starter/libs/ui/shared';
+import { MainComponent } from '@starter/ui/shared';
 
 const routes: Routes = [
   {
@@ -9,15 +9,15 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('@starter/libs/ui/home').then((m) => m.HomeModule),
+        loadChildren: () => import('@starter/ui/home').then((m) => m.HomeModule),
       },
       {
         path: 'auth',
-        loadChildren: () => import('@starter/libs/ui/auth').then((m) => m.AuthModule),
+        loadChildren: () => import('@starter/ui/auth').then((m) => m.AuthModule),
       },
       {
         path: 'dashboard',
-        loadChildren: () => import('@starter/libs/ui/dashboard').then((m) => m.DashboardModule),
+        loadChildren: () => import('@starter/ui/dashboard').then((m) => m.DashboardModule),
       },
     ],
   },

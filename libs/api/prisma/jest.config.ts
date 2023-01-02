@@ -1,15 +1,16 @@
 /* eslint-disable */
 export default {
-  displayName: 'ui-tokens',
+  displayName: 'api-prisma',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
+  testEnvironment: 'node',
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest',
+    '^.+\\.ts$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/ui/tokens',
+  moduleFileExtensions: ['ts', 'js', 'html'],
+  coverageDirectory: '../../../coverage/libs/api/prisma',
 };

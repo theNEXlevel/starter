@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Confirm } from '@starter/interfaces';
-import { AuthService } from '@starter/libs/ui/shared';
+import { AuthService } from '@starter/ui/shared';
 import { BehaviorSubject, filter, map, switchMap, tap } from 'rxjs';
 
 @Component({

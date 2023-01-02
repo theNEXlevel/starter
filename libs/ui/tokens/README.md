@@ -1,11 +1,11 @@
-# tokens
+# ui-tokens
 
 This library was generated with [Nx](https://nx.dev).
 
 ## Running unit tests
 
-Run `nx test tokens` to execute the unit tests via [Jest](https://jestjs.io).
+Run `nx test ui-tokens` to execute the unit tests via [Jest](https://jestjs.io).
 
 ## Running lint
 
-Run `nx lint tokens` to execute the lint via [ESLint](https://eslint.org/).
+Run `nx lint ui-tokens` to execute the lint via [ESLint](https://eslint.org/).

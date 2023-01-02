@@ -3,13 +3,16 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
-    "auth": "libs/ui/auth",
-    "dashboard": "libs/ui/dashboard",
+    "api-auth": "libs/api/auth",
+    "api-mail": "libs/api/mail",
+    "api-prisma": "libs/api/prisma",
+    "ui-auth": "libs/ui/auth",
+    "ui-dashboard": "libs/ui/dashboard",
     "e2e": "apps/e2e",
-    "home": "libs/ui/home",
+    "ui-home": "libs/ui/home",
     "interfaces": "libs/interfaces",
-    "shared": "libs/ui/shared",
-    "tokens": "libs/ui/tokens",
+    "ui-shared": "libs/ui/shared",
+    "ui-tokens": "libs/ui/tokens",
     "ui": "apps/ui"
   }
 }

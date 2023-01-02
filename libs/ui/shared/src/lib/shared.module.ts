@@ -19,7 +19,7 @@ import { MainComponent } from './components/main/main.component';
 import { NavComponent } from './components/main/nav/nav.component';
 import { LoginComponent } from './components/main/nav/login/login.component';
 import { Environment } from '@starter/interfaces';
-import { ENV } from '@starter/libs/ui/tokens';
+import { ENV } from '@starter/ui/tokens';
 
 const sharedModules = [
   ReactiveFormsModule,

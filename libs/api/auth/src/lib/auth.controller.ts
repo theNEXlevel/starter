@@ -19,7 +19,7 @@ export class AuthController {
   @Post('register')
   @ApiOperation({ summary: 'register a new user and send confirmation email' })
   @ApiConsumes('application/x-www-form-urlencoded')
-  @ApiCreatedResponse({ status: 201, description: 'Registered and email sent', type: null })
+  @ApiCreatedResponse({ status: 201, description: 'Registered and email sent', type: Boolean })
   @ApiBadRequestResponse({ status: 400, description: 'Data incorrect', type: ErrorEntity })
   @ApiForbiddenResponse({ status: 403, description: 'Forbidden' })
   register(@Body() dto: Login) {
